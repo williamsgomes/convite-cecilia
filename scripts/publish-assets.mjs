@@ -118,6 +118,26 @@ async function publish({
   );
 }
 
+async function publishFlatSource({ src, dest, maxWidth, quality = 86 }) {
+  await mkdir(path.dirname(dest), { recursive: true });
+  let pipeline = sharp(src);
+  const meta = await pipeline.metadata();
+  if (maxWidth && meta.width && meta.width > maxWidth) {
+    pipeline = sharp(src).resize({
+      width: maxWidth,
+      withoutEnlargement: true,
+    });
+  }
+
+  const info = await pipeline.webp({ quality, effort: 6 }).toFile(dest);
+
+  console.log(
+    `${path.relative(PUBLIC, dest)}  ${info.width}×${info.height}  ${(info.size / 1024).toFixed(0)}KB`,
+  );
+
+  return info;
+}
+
 async function publishSource({ src, dest, maxWidth, quality = 86 }) {
   await mkdir(path.dirname(dest), { recursive: true });
   const trimmed = await sharp(src)
@@ -156,6 +176,27 @@ await publishSource({
   dest: path.join(PUBLIC, "decorations/nuvem-1ano.webp"),
   maxWidth: 900,
   quality: 88,
+});
+
+await publishFlatSource({
+  src: path.join(EXPORTS, "header-pronto.png"),
+  dest: path.join(PUBLIC, "backgrounds/header-pronto.webp"),
+  maxWidth: 900,
+  quality: 85,
+});
+
+await publishSource({
+  src: path.join(EXPORTS, "bee.png"),
+  dest: path.join(PUBLIC, "decorations/bee.webp"),
+  maxWidth: 200,
+  quality: 90,
+});
+
+await publishSource({
+  src: path.join(EXPORTS, "balao.png"),
+  dest: path.join(PUBLIC, "decorations/balao.webp"),
+  maxWidth: 220,
+  quality: 90,
 });
 
 const jobs = [
@@ -224,12 +265,6 @@ const jobs = [
     box: { left: 428, top: 282, width: 268, height: 248 },
     dest: path.join(PUBLIC, "animals/rooster.webp"),
     maxWidth: 560,
-  },
-  {
-    src: "suporte_elementos_extras.png",
-    box: { left: 860, top: 306, width: 105, height: 95 },
-    dest: path.join(PUBLIC, "decorations/bee.webp"),
-    maxWidth: 200,
   },
   {
     src: "suporte_elementos_header.png",

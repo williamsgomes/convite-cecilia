@@ -4,6 +4,7 @@
   --surface: #fdf7f2;
   --surface-raised: #fffdfb;
   --surface-sunken: #f8efe9;
+  --surface-header: #fbe8de;
   --primary: #5b4937;
   --muted: #7a5c4a;
   --accent: #f28089;
@@ -20,6 +21,7 @@
   --color-surface: var(--surface);
   --color-surface-raised: var(--surface-raised);
   --color-surface-sunken: var(--surface-sunken);
+  --color-surface-header: var(--surface-header);
   --color-primary: var(--primary);
   --color-muted: var(--muted);
   --color-accent: var(--accent);

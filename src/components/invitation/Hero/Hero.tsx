@@ -7,15 +7,14 @@ import { GinghamBar } from "@/components/decorations/GinghamBar";
 import { cn } from "@/lib/utils";
 import type { Event } from "@/types/event";
 
-import { HeroDecor } from "./HeroDecor";
+import { HeroBalloonDecor, HeroInsectDecor } from "./HeroFloatingDecor";
 import { HeroDetails } from "./HeroDetails";
-import { HeroPlaque } from "./HeroPlaque";
 
 type HeroProps = {
   event: Event;
 };
 
-const frameClass = "mx-auto w-full max-w-md px-4";
+const contentFrameClass = "mx-auto w-full max-w-md px-4";
 
 export function Hero({ event }: HeroProps) {
   const reduceMotion = useReducedMotion();
@@ -36,56 +35,31 @@ export function Hero({ event }: HeroProps) {
   return (
     <section
       aria-labelledby="titulo-convite"
-      className="relative overflow-x-clip"
+      className="relative w-full overflow-visible bg-surface-header"
     >
       <h1 id="titulo-convite" className="sr-only">
         {event.honoreeName}, {event.age} aninho
       </h1>
 
-      <div className="relative">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/backgrounds/hero.webp"
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-            aria-hidden
-            className="object-cover object-top"
-          />
-          <div className="absolute inset-0 bg-surface/20" />
-          <div className="absolute inset-x-0 bottom-0 h-16 bg-linear-to-t from-surface to-transparent" />
-        </div>
-
-        <div className={cn(frameClass, "relative z-10 pt-12 pb-8")}>
-          <div className="absolute top-3 right-4 z-30 w-[4.5rem] sm:w-20">
-            <HeroDecor />
-          </div>
-
-          <motion.div
-            className="flex flex-col items-center"
-            {...fadeUp(0.08)}
-          >
-            <Image
-              src="/images/baby/cecilia-baby.webp"
-              alt="Cecília, aniversariante, apontando para cima"
-              width={555}
-              height={577}
-              priority
-              sizes="14rem"
-              className="relative z-10 -mb-4 h-auto w-52 sm:-mb-6 sm:w-56"
-            />
-            <HeroPlaque />
-          </motion.div>
-        </div>
+      <div className="relative w-full">
+        <Image
+          src="/images/backgrounds/header-pronto.webp"
+          alt="Cecília, convite de 1 aninho na fazendinha"
+          width={900}
+          height={839}
+          priority
+          sizes="100vw"
+          className="block h-auto w-full max-w-none"
+        />
+        <HeroInsectDecor />
       </div>
 
-      <div className="relative z-20 -mt-1 bg-surface pb-8">
-        <div className={frameClass}>
-          <motion.div {...fadeUp(0.28)}>
-            <HeroDetails event={event} />
-          </motion.div>
-        </div>
+      <HeroBalloonDecor />
+
+      <div className={cn(contentFrameClass, "relative pb-8 pt-8")}>
+        <motion.div {...fadeUp(0.2)}>
+          <HeroDetails event={event} />
+        </motion.div>
       </div>
 
       <GinghamBar />

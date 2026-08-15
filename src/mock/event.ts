@@ -9,7 +9,7 @@ export const event: Event = {
   age: 1,
   description:
     "Uma pequena menina cheia de luz, sorrisos e muita alegria, que chegou para transformar nossas vidas e encher nossos dias de amor.",
-  eventDate: "2026-09-06T11:00:00-03:00",
+  eventDate: "2026-09-06T12:00:00-03:00",
   locationName: "Restaurante Engenho do Castelo",
   locationAddress: "Endereço a confirmar",
   mapsUrl: "https://maps.google.com/?q=Restaurante+Engenho+do+Castelo",
