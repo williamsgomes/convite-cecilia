@@ -1,0 +1,22 @@
+---
+description: Sempre usar a skill frontend-ui-engineering em qualquer trabalho de frontend deste convite.
+alwaysApply: true
+---
+
+# Frontend UI Engineering — obrigatório
+
+Antes de criar, alterar ou revisar qualquer UI deste projeto, ler e seguir:
+
+`.agents/skills/frontend-ui-engineering/SKILL.md`
+
+Aplica-se a páginas, seções, componentes, layouts, estilos, animações, formulários, estados e responsividade.
+
+## Regras deste projeto
+
+- Identidade: convite infantil premium **Fazendinha da Cecília**, não SaaS nem landing genérica.
+- Paleta da referência (rosa pastel, creme, madeira, verde suave). Nunca paleta roxa/índigo padrão de IA.
+- HTML semântico, botões reais, labels, foco visível, teclado, `prefers-reduced-motion`.
+- Mobile-first. Uma única OnePage. Sem versão desktop separada.
+- Componentes desacoplados de dados. Mocks agora; Data Access Layer depois.
+- Textos, botões, countdown e formulários são HTML real — nunca uma imagem de seção inteira.
+- Espaçamento e raios vêm dos tokens do design system, não de valores arbitrários.

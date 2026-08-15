@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+:root {
+  --surface: #fdf7f2;
+  --surface-raised: #fffdfb;
+  --surface-sunken: #f8efe9;
+  --primary: #5b4937;
+  --muted: #7a5c4a;
+  --accent: #f28089;
+  --accent-strong: #c4455c;
+  --accent-foreground: #fffdfb;
+  --sage: #b7b66d;
+  --sage-strong: #6e7038;
+  --wood: #8b5e3c;
+  --border: #ead9cf;
+  --ring: #c4455c;
+}
+
+@theme inline {
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-primary: var(--primary);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-sage: var(--sage);
+  --color-sage-strong: var(--sage-strong);
+  --color-wood: var(--wood);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --font-sans: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-great-vibes), cursive;
+  --text-display: 3.25rem;
+  --text-display--line-height: 1.15;
+  --text-script: 2.5rem;
+  --text-script--line-height: 1.2;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.25rem;
+  --radius-pill: 1.5rem;
+  --shadow-soft: 0 1px 2px rgb(91 73 55 / 0.06);
+  --shadow-lift: 0 8px 24px rgb(91 73 55 / 0.08);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--surface);
+  color: var(--primary);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+
+.gingham-bar {
+  background-color: var(--accent);
+  background-image:
+    linear-gradient(90deg, rgb(255 253 251 / 0.5) 50%, transparent 50%),
+    linear-gradient(rgb(255 253 251 / 0.5) 50%, transparent 50%);
+  background-size: 0.75rem 0.75rem;
+}
+
+.shadow-scallop {
+  filter: drop-shadow(0 8px 24px rgb(91 73 55 / 0.08));
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-float {
+    animation: float-y 4.5s ease-in-out infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
