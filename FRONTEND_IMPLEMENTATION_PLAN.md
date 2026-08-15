@@ -19,10 +19,10 @@
 | 04 | Hero | Concluída |
 | 05 | História / Era uma vez | Concluída |
 | 06 | Contagem regressiva | Concluída |
-| 07 | RSVP | Pendente |
-| 08 | Carrossel de mensagens | Pendente |
+| 07 | RSVP | Concluída |
+| 08 | Carrossel de mensagens | Concluída |
 | 09 | Momentos da Cecília | Pendente |
-| 10 | Guestbook | Pendente |
+| 10 | Guestbook | Concluída |
 | 11 | Localização | Pendente |
 | 12 | Footer / Final da experiência | Pendente |
 | 13 | Continuidade | Pendente |
@@ -40,7 +40,7 @@
 | 25 | Performance final | Pendente |
 | 26 | Pixel refinement | Pendente |
 
-**Próxima:** Onda 07 — RSVP.
+**Próxima:** Onda 09 — Momentos da Cecília.
 
 ---
 
@@ -650,6 +650,8 @@ Mesmo que o envio seja apenas mockado.
 
 No mobile, os botões devem ter largura adequada e grande área de toque.
 
+**Status:** concluída. `src/components/invitation/Rsvp/`. Botões Sim/Não, modais, mock localStorage, estados idle/loading/success/error, decoração e feedback.
+
 ---
 
 # 14. Recadinhos
@@ -700,6 +702,8 @@ mock/messages.ts
 O texto deve permanecer legível mesmo quando houver mensagens maiores.
 
 Evitar altura fixa que corte conteúdo.
+
+**Status:** concluída. `src/components/invitation/Messages/`. Carrossel de recadinhos aprovados, nav abaixo do card, swipe/teclado, sem formulário.
 
 ---
 
@@ -800,6 +804,8 @@ success
 ```
 
 Pode atualizar a lista local durante o desenvolvimento.
+
+**Status:** concluída junto à seção de recadinhos. `GuestbookForm` em `src/components/invitation/Messages/`. Formulário HTML, counter 0/200, mock local e atualização do carrossel.
 
 ---
 
@@ -1350,10 +1356,10 @@ Priorizar ajustes de acabamento.
 ## Interações
 
 - [x] Countdown funciona.
-- [ ] RSVP funciona.
+- [x] RSVP funciona.
 - [ ] Modal funciona.
-- [ ] Recadinhos funcionam.
-- [ ] Carrossel funciona.
+- [x] Recadinhos funcionam.
+- [x] Carrossel funciona.
 - [ ] Galeria funciona.
 - [ ] Lightbox funciona, se implementado.
 - [ ] Localização funciona.

@@ -34,6 +34,7 @@
   --color-ring: var(--ring);
   --font-sans: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-great-vibes), cursive;
+  --font-hand: var(--font-dancing), cursive;
   --text-display: 3.25rem;
   --text-display--line-height: 1.15;
   --text-script: 2.5rem;

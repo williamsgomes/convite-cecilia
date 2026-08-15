@@ -40,7 +40,7 @@ export function Countdown({ event }: CountdownProps) {
           <div className="relative overflow-visible rounded-lg bg-accent/10 px-3 pb-4 shadow-soft sm:px-4">
             <CountdownHeader event={event} />
 
-            <div className="pt-20 sm:pt-20">
+            <div className="pt-20">
               <CountdownUnits
                 event={event}
                 remaining={remaining}

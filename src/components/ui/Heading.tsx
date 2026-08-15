@@ -21,23 +21,28 @@ const sansSizes = {
 type HeadingProps = React.ComponentProps<"h1"> & {
   level?: 1 | 2 | 3;
   display?: boolean;
+  hand?: boolean;
 };
 
 export function Heading({
   level = 2,
   display = false,
+  hand = false,
   className,
   ...props
 }: HeadingProps) {
   const Tag = tags[level];
+  const isScript = display || hand;
 
   return (
     <Tag
       className={cn(
-        display
-          ? "font-display font-normal text-accent-strong"
-          : "font-sans font-extrabold text-primary",
-        display ? displaySizes[level] : sansSizes[level],
+        hand
+          ? "font-hand font-semibold text-primary"
+          : display
+            ? "font-display font-normal text-accent-strong"
+            : "font-sans font-extrabold text-primary",
+        isScript ? displaySizes[level] : sansSizes[level],
         className,
       )}
       {...props}

@@ -206,6 +206,13 @@ await publishSource({
   quality: 90,
 });
 
+await publishSource({
+  src: path.join(EXPORTS, "placa-confirmacao.png"),
+  dest: path.join(PUBLIC, "rsvp/placa-confirmacao.webp"),
+  maxWidth: 560,
+  quality: 90,
+});
+
 const jobs = [
   {
     src: "suporte_elementos_header.png",

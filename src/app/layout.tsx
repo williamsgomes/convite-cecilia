@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Great_Vibes, Nunito } from "next/font/google";
+import { Dancing_Script, Great_Vibes, Nunito } from "next/font/google";
 
 import "./globals.css";
 
@@ -17,6 +17,13 @@ const greatVibes = Great_Vibes({
   weight: "400",
 });
 
+const dancingScript = Dancing_Script({
+  subsets: ["latin"],
+  variable: "--font-dancing",
+  display: "swap",
+  weight: ["400", "600", "700"],
+});
+
 export const metadata: Metadata = {
   title: {
     default: "Fazendinha da Cecília",
@@ -31,7 +38,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="pt-BR"
-      className={`${nunito.variable} ${greatVibes.variable} h-full antialiased`}
+      className={`${nunito.variable} ${greatVibes.variable} ${dancingScript.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-surface font-sans text-primary">
         <a

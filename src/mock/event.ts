@@ -23,6 +23,38 @@ export const event: Event = {
   countdownTitle: "a nossa festinha!",
   countdownEndedTitle: "Chegou o grande dia!",
   countdownEndedMessage: "Mal podemos esperar para celebrar com você!",
+  rsvpTitleLine: "Vai ter festa na fazendinha,",
+  rsvpTitleBridge: "você vem...",
+  rsvpTitleScript: "comemorar comigo?",
+  rsvpIntro:
+    "Confirme sua presença para deixar esse dia ainda mais especial!",
+  rsvpPrivacyNote:
+    "Sua resposta é confidencial e muito importante para nós.",
+  rsvpYesLabel: "Sim, eu vou!",
+  rsvpYesHint: "Vai ser incrível!",
+  rsvpNoLabel: "Não vou",
+  rsvpNoHint: "Até a próxima!",
+  rsvpSuccessConfirmed:
+    "Que alegria! Sua presença já está confirmada. Mal podemos esperar para celebrar com você!",
+  rsvpSuccessDeclined:
+    "Obrigada por avisar. Sentiremos sua falta, mas guardamos carinho no coração!",
+  rsvpErrorMessage:
+    "Não conseguimos registrar sua resposta agora. Tente novamente, por favor.",
+  messagesTitle: "Recadinhos cheios de carinho",
+  messagesSubtitle: "Mensagens especiais para a nossa pequena Cecília.",
+  guestbookTitle: "Deixe um recadinho",
+  guestbookSubtitle:
+    "Sua mensagem vai deixar o dia da Cecília ainda mais especial!",
+  guestbookNameLabel: "Seu nome",
+  guestbookNamePlaceholder: "Como podemos te chamar?",
+  guestbookMessageLabel: "Seu recadinho",
+  guestbookMessagePlaceholder: "Escreva uma mensagem especial para a Cecília...",
+  guestbookSubmit: "Enviar recadinho",
+  guestbookPrivacy:
+    "Sua mensagem será exibida aqui embaixo para todos os convidados.",
+  guestbookSuccess: "Recadinho enviado com carinho. Obrigada!",
+  guestbookError:
+    "Não conseguimos enviar agora. Tente novamente, por favor.",
   eventDate: "2026-09-06T12:00:00-03:00",
   locationName: "Restaurante Engenho do Castelo",
   locationAddress: "Endereço a confirmar",
