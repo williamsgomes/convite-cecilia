@@ -75,6 +75,18 @@ body {
   filter: drop-shadow(0 8px 24px rgb(91 73 55 / 0.08));
 }
 
+.polaroid-frame {
+  background: var(--surface-raised);
+  border: 2px solid rgb(255 253 251 / 0.95);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lift);
+  padding: 0.625rem 0.625rem 2.5rem;
+}
+
+.polaroid-photo {
+  box-shadow: var(--shadow-soft);
+}
+
 @keyframes float-y {
   0%,
   100% {

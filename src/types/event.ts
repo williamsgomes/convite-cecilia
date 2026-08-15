@@ -4,6 +4,13 @@ export type Event = {
   honoreeName: string;
   age: number;
   description: string;
+  storyTitle: string;
+  storyIntro: string;
+  storyBody: string;
+  storyHighlight: string;
+  storyQuote: string;
+  storyQuoteReference: string;
+  storyClosing: string;
   eventDate: string;
   locationName: string;
   locationAddress: string;

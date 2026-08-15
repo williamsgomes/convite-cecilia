@@ -17,7 +17,7 @@
 | 02 | Fundamentos visuais | Concluída |
 | 03 | Asset pipeline | Concluída |
 | 04 | Hero | Concluída |
-| 05 | História / Era uma vez | Pendente |
+| 05 | História / Era uma vez | Concluída |
 | 06 | Contagem regressiva | Pendente |
 | 07 | RSVP | Pendente |
 | 08 | Carrossel de mensagens | Pendente |
@@ -40,7 +40,7 @@
 | 25 | Performance final | Pendente |
 | 26 | Pixel refinement | Pendente |
 
-**Próxima:** Onda 05 — História / Era uma vez.
+**Próxima:** Onda 06 — Contagem regressiva.
 
 ---
 
@@ -528,6 +528,8 @@ Mobile:
 - fotografia em seguida ou composição definida pela referência;
 - decoração reduzida;
 - evitar excesso de elementos laterais.
+
+**Status:** concluída. `src/components/invitation/Story/`. Título HTML, polaroid CSS, decorações posicionáveis e cerca de transição para o countdown.
 
 ---
 
