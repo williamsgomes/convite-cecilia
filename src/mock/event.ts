@@ -55,6 +55,10 @@ export const event: Event = {
   guestbookSuccess: "Recadinho enviado com carinho. Obrigada!",
   guestbookError:
     "Não conseguimos enviar agora. Tente novamente, por favor.",
+  galleryTitle: "Momentos da Cecília",
+  gallerySubtitle:
+    "Cada sorriso, cada descoberta, cada momento especial da nossa pequena.",
+  galleryMoreLabel: "Ver mais fotos",
   eventDate: "2026-09-06T12:00:00-03:00",
   locationName: "Restaurante Engenho do Castelo",
   locationAddress: "Endereço a confirmar",

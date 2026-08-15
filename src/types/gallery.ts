@@ -1,9 +1,26 @@
-export type GalleryItem = {
+export type TimelinePhoto = {
   id: string;
-  eventId: string;
-  imageUrl: string;
-  altText: string;
-  caption: string;
-  sortOrder: number;
-  published: boolean;
+  month: number;
+  label: string;
+  src: string;
+  alt: string;
+};
+
+export type GalleryPhoto = {
+  id: string;
+  src: string;
+  alt: string;
+  caption?: string;
+};
+
+export type PhotosFile = {
+  timeline: TimelinePhoto[];
+  gallery: GalleryPhoto[];
+};
+
+export type LightboxPhoto = {
+  id: string;
+  src: string;
+  alt: string;
+  caption?: string;
 };

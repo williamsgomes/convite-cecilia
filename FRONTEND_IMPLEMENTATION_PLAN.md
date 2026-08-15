@@ -21,7 +21,7 @@
 | 06 | Contagem regressiva | Concluída |
 | 07 | RSVP | Concluída |
 | 08 | Carrossel de mensagens | Concluída |
-| 09 | Momentos da Cecília | Pendente |
+| 09 | Momentos da Cecília | Concluída |
 | 10 | Guestbook | Concluída |
 | 11 | Localização | Pendente |
 | 12 | Footer / Final da experiência | Pendente |
@@ -40,7 +40,7 @@
 | 25 | Performance final | Pendente |
 | 26 | Pixel refinement | Pendente |
 
-**Próxima:** Onda 09 — Momentos da Cecília.
+**Próxima:** Onda 11 — Localização.
 
 ---
 
@@ -762,6 +762,8 @@ Possível lightbox:
 - teclado;
 - swipe.
 
+**Status:** concluída. `src/components/invitation/Gallery/`. Linha do tempo 0–12 meses (polaroid + snap horizontal), lightbox, modal de fotos extras via `src/mock/photos.json`. Sem o grid 1+6 da referência.
+
 ---
 
 # 16. Formulário de recadinho
@@ -1360,8 +1362,8 @@ Priorizar ajustes de acabamento.
 - [ ] Modal funciona.
 - [x] Recadinhos funcionam.
 - [x] Carrossel funciona.
-- [ ] Galeria funciona.
-- [ ] Lightbox funciona, se implementado.
+- [x] Galeria funciona.
+- [x] Lightbox funciona, se implementado.
 - [ ] Localização funciona.
 
 ## Animações

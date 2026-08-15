@@ -1,0 +1,133 @@
+{
+  "timeline": [
+    {
+      "id": "tl-00",
+      "month": 0,
+      "label": "0 mês",
+      "src": "/images/gallery/01.webp",
+      "alt": "Cecília com 0 mês"
+    },
+    {
+      "id": "tl-01",
+      "month": 1,
+      "label": "1 mês",
+      "src": "/images/gallery/02.webp",
+      "alt": "Cecília com 1 mês"
+    },
+    {
+      "id": "tl-02",
+      "month": 2,
+      "label": "2 meses",
+      "src": "/images/gallery/03.webp",
+      "alt": "Cecília com 2 meses"
+    },
+    {
+      "id": "tl-03",
+      "month": 3,
+      "label": "3 meses",
+      "src": "/images/gallery/04.webp",
+      "alt": "Cecília com 3 meses"
+    },
+    {
+      "id": "tl-04",
+      "month": 4,
+      "label": "4 meses",
+      "src": "/images/gallery/05.webp",
+      "alt": "Cecília com 4 meses"
+    },
+    {
+      "id": "tl-05",
+      "month": 5,
+      "label": "5 meses",
+      "src": "/images/gallery/06.webp",
+      "alt": "Cecília com 5 meses"
+    },
+    {
+      "id": "tl-06",
+      "month": 6,
+      "label": "6 meses",
+      "src": "/images/gallery/01.webp",
+      "alt": "Cecília com 6 meses"
+    },
+    {
+      "id": "tl-07",
+      "month": 7,
+      "label": "7 meses",
+      "src": "/images/gallery/02.webp",
+      "alt": "Cecília com 7 meses"
+    },
+    {
+      "id": "tl-08",
+      "month": 8,
+      "label": "8 meses",
+      "src": "/images/gallery/03.webp",
+      "alt": "Cecília com 8 meses"
+    },
+    {
+      "id": "tl-09",
+      "month": 9,
+      "label": "9 meses",
+      "src": "/images/gallery/04.webp",
+      "alt": "Cecília com 9 meses"
+    },
+    {
+      "id": "tl-10",
+      "month": 10,
+      "label": "10 meses",
+      "src": "/images/gallery/05.webp",
+      "alt": "Cecília com 10 meses"
+    },
+    {
+      "id": "tl-11",
+      "month": 11,
+      "label": "11 meses",
+      "src": "/images/gallery/06.webp",
+      "alt": "Cecília com 11 meses"
+    },
+    {
+      "id": "tl-12",
+      "month": 12,
+      "label": "1 aninho",
+      "src": "/images/gallery/01.webp",
+      "alt": "Cecília com 1 aninho"
+    }
+  ],
+  "gallery": [
+    {
+      "id": "gal-1",
+      "src": "/images/gallery/01.webp",
+      "alt": "Celeiro rosa da fazendinha — foto em breve",
+      "caption": "Celeiro da fazendinha"
+    },
+    {
+      "id": "gal-2",
+      "src": "/images/gallery/02.webp",
+      "alt": "Árvore com balanço — foto em breve",
+      "caption": "Tarde no balanço"
+    },
+    {
+      "id": "gal-3",
+      "src": "/images/gallery/03.webp",
+      "alt": "Pônei da fazendinha — foto em breve",
+      "caption": "Passeio com o pônei"
+    },
+    {
+      "id": "gal-4",
+      "src": "/images/gallery/04.webp",
+      "alt": "Flores da fazendinha — foto em breve",
+      "caption": "Flores do jardim"
+    },
+    {
+      "id": "gal-5",
+      "src": "/images/gallery/05.webp",
+      "alt": "Fardos de feno — foto em breve",
+      "caption": "Feno e brincadeira"
+    },
+    {
+      "id": "gal-6",
+      "src": "/images/gallery/06.webp",
+      "alt": "Patinho da fazendinha — foto em breve",
+      "caption": "Amigos da fazenda"
+    }
+  ]
+}

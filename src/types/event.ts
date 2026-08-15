@@ -39,6 +39,9 @@ export type Event = {
   guestbookPrivacy: string;
   guestbookSuccess: string;
   guestbookError: string;
+  galleryTitle: string;
+  gallerySubtitle: string;
+  galleryMoreLabel: string;
   eventDate: string;
   locationName: string;
   locationAddress: string;
