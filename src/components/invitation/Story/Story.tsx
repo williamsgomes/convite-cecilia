@@ -3,7 +3,6 @@
 import { useRef } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
-import { GinghamBar } from "@/components/decorations/GinghamBar";
 import type { Event } from "@/types/event";
 
 import { StoryComposition } from "./StoryComposition";
@@ -50,8 +49,6 @@ export function Story({ event }: StoryProps) {
           />
         </motion.div>
       </div>
-
-      <GinghamBar />
     </section>
   );
 }

@@ -18,7 +18,7 @@
 | 03 | Asset pipeline | Concluída |
 | 04 | Hero | Concluída |
 | 05 | História / Era uma vez | Concluída |
-| 06 | Contagem regressiva | Pendente |
+| 06 | Contagem regressiva | Concluída |
 | 07 | RSVP | Pendente |
 | 08 | Carrossel de mensagens | Pendente |
 | 09 | Momentos da Cecília | Pendente |
@@ -40,7 +40,7 @@
 | 25 | Performance final | Pendente |
 | 26 | Pixel refinement | Pendente |
 
-**Próxima:** Onda 06 — Contagem regressiva.
+**Próxima:** Onda 07 — RSVP.
 
 ---
 
@@ -583,6 +583,8 @@ Os números devem ter:
 - largura previsível;
 - transição suave;
 - boa adaptação mobile.
+
+**Status:** concluída. `src/components/invitation/Countdown/`. Timer real a partir de `eventDate`, tiles HTML 2×2 mobile / 4 colunas sm+, placa de madeira, decoração e estado pós-evento.
 
 ---
 
@@ -1347,7 +1349,7 @@ Priorizar ajustes de acabamento.
 
 ## Interações
 
-- [ ] Countdown funciona.
+- [x] Countdown funciona.
 - [ ] RSVP funciona.
 - [ ] Modal funciona.
 - [ ] Recadinhos funcionam.

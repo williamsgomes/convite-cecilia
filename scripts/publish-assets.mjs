@@ -199,6 +199,13 @@ await publishSource({
   quality: 90,
 });
 
+await publishSource({
+  src: path.join(EXPORTS, "topo-contador.png"),
+  dest: path.join(PUBLIC, "countdown/topo-contador.webp"),
+  maxWidth: 560,
+  quality: 90,
+});
+
 const jobs = [
   {
     src: "suporte_elementos_header.png",

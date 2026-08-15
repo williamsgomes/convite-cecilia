@@ -19,6 +19,10 @@ export const event: Event = {
   storyQuoteReference: "Salmos 127:3",
   storyClosing:
     "Será um dia muito especial, preparado com todo carinho, para agradecer a Deus por sua vida e celebrar junto de quem amamos esse primeiro aninho tão precioso.",
+  countdownIntro: "Falta pouco para",
+  countdownTitle: "a nossa festinha!",
+  countdownEndedTitle: "Chegou o grande dia!",
+  countdownEndedMessage: "Mal podemos esperar para celebrar com você!",
   eventDate: "2026-09-06T12:00:00-03:00",
   locationName: "Restaurante Engenho do Castelo",
   locationAddress: "Endereço a confirmar",

@@ -11,6 +11,10 @@ export type Event = {
   storyQuote: string;
   storyQuoteReference: string;
   storyClosing: string;
+  countdownIntro: string;
+  countdownTitle: string;
+  countdownEndedTitle: string;
+  countdownEndedMessage: string;
   eventDate: string;
   locationName: string;
   locationAddress: string;
