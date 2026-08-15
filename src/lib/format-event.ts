@@ -37,6 +37,16 @@ export function formatEventDetails(event: Event) {
   };
 }
 
+export function mapsEmbedUrl(mapsUrl: string) {
+  try {
+    const url = new URL(mapsUrl);
+    const query = url.searchParams.get("q") ?? mapsUrl;
+    return `https://maps.google.com/maps?q=${encodeURIComponent(query)}&output=embed`;
+  } catch {
+    return mapsUrl;
+  }
+}
+
 export function formatMessageDate(isoDate: string) {
   return new Date(isoDate).toLocaleDateString("pt-BR", {
     day: "2-digit",

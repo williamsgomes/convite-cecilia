@@ -11,23 +11,21 @@ type TimelineProps = {
 
 export function Timeline({ photos, onOpenPhoto }: TimelineProps) {
   return (
-    <div className="relative mt-6">
+    <div className="relative mt-8 px-4">
       <div
         aria-hidden
-        className="absolute top-24 right-0 left-0 h-1 rounded-full bg-sage/50"
+        className="absolute inset-y-0 left-1/2 w-0.5 -translate-x-1/2 rounded-full bg-sage/50"
       />
-      <ul
-        className="relative flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        aria-label="Linha do tempo da Cecília"
-      >
+      <ol className="relative" aria-label="Linha do tempo da Cecília">
         {photos.map((photo, index) => (
           <TimelineItem
             key={photo.id}
             photo={photo}
+            align={index % 2 === 0 ? "left" : "right"}
             onOpen={() => onOpenPhoto(index)}
           />
         ))}
-      </ul>
+      </ol>
     </div>
   );
 }

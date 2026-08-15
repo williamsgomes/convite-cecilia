@@ -23,8 +23,8 @@
 | 08 | Carrossel de mensagens | Concluída |
 | 09 | Momentos da Cecília | Concluída |
 | 10 | Guestbook | Concluída |
-| 11 | Localização | Pendente |
-| 12 | Footer / Final da experiência | Pendente |
+| 11 | Localização | Concluída |
+| 12 | Footer / Final da experiência | Concluída |
 | 13 | Continuidade | Pendente |
 | 14 | Elementos vivos | Pendente |
 | 15 | Motion System | Pendente |
@@ -40,7 +40,7 @@
 | 25 | Performance final | Pendente |
 | 26 | Pixel refinement | Pendente |
 
-**Próxima:** Onda 11 — Localização.
+**Próxima:** Onda 13 — Continuidade.
 
 ---
 
@@ -856,6 +856,8 @@ O mapa deve possuir altura adequada no mobile.
 
 Não permitir que o mapa domine a tela.
 
+**Status:** concluída. `src/components/invitation/Location/`. Iframe Maps `h-44`, card de endereço/como chegar, link real para o Maps, coelho ao lado do mapa (sem vaca/ovelha do RSVP).
+
 ---
 
 # 18. Encerramento
@@ -881,6 +883,8 @@ Priorizar:
 Evitar criar um footer corporativo tradicional.
 
 É um encerramento de convite, não um rodapé de website comercial.
+
+**Status:** concluída. `src/components/invitation/Closing/`. Placa `sign-convidado.webp`, mensagem HTML e `fence-gate` só no fim da página.
 
 ---
 
@@ -1364,7 +1368,7 @@ Priorizar ajustes de acabamento.
 - [x] Carrossel funciona.
 - [x] Galeria funciona.
 - [x] Lightbox funciona, se implementado.
-- [ ] Localização funciona.
+- [x] Localização funciona.
 
 ## Animações
 

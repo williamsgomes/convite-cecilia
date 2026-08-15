@@ -60,8 +60,17 @@ export const event: Event = {
     "Cada sorriso, cada descoberta, cada momento especial da nossa pequena.",
   galleryMoreLabel: "Ver mais fotos",
   eventDate: "2026-09-06T12:00:00-03:00",
+  locationTitle: "Onde vai ser a festa da Cecília?",
+  locationIntro:
+    "Estamos te esperando para comemorarmos juntos esse dia tão especial!",
   locationName: "Restaurante Engenho do Castelo",
-  locationAddress: "Endereço a confirmar",
+  locationAddress:
+    "Estrada do Engenho do Mato, 200 / Icaraí – Niterói – RJ",
+  locationHowToLabel: "Como chegar?",
+  locationHowToText: "Fácil acesso e estacionamento no local.",
+  locationMapsLabel: "Abrir no Google Maps",
   mapsUrl: "https://maps.google.com/?q=Restaurante+Engenho+do+Castelo",
+  closingLine1: "Vai ser um dia inesquecível!",
+  closingLine2: "Contamos com a sua presença!",
   whatsapp: "+5500000000000",
 };

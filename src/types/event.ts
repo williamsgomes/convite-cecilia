@@ -43,8 +43,15 @@ export type Event = {
   gallerySubtitle: string;
   galleryMoreLabel: string;
   eventDate: string;
+  locationTitle: string;
+  locationIntro: string;
   locationName: string;
   locationAddress: string;
+  locationHowToLabel: string;
+  locationHowToText: string;
+  locationMapsLabel: string;
   mapsUrl: string;
+  closingLine1: string;
+  closingLine2: string;
   whatsapp: string;
 };
