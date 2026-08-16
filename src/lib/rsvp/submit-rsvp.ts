@@ -1,13 +1,8 @@
-import { EVENT_ID } from "@/mock/event";
-import type { Rsvp, RsvpStatus } from "@/types/rsvp";
+"use server";
 
-import { saveStoredRsvp } from "./storage";
-
-export type SubmitRsvpInput = {
-  name: string;
-  guests: number;
-  status: RsvpStatus;
-};
+import { getEventId } from "@/lib/data/events";
+import { createServerClient } from "@/lib/supabase/server";
+import type { Rsvp, SubmitRsvpInput } from "@/types/rsvp";
 
 function createRsvpId() {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
@@ -19,35 +14,49 @@ function createRsvpId() {
 
 export async function submitRsvp(input: SubmitRsvpInput): Promise<Rsvp> {
   const trimmedName = input.name.trim();
+  const childrenCount =
+    input.status === "confirmed" ? input.childrenCount : 0;
+
+  if (trimmedName.length < 2) {
+    throw new Error(
+      input.status === "confirmed"
+        ? "Informe seu nome para confirmar presença."
+        : "Informe seu nome para avisar que não poderá ir.",
+    );
+  }
 
   if (input.status === "confirmed") {
-    if (trimmedName.length < 2) {
-      throw new Error("Informe seu nome para confirmar presença.");
-    }
-
-    if (!Number.isFinite(input.guests) || input.guests < 1 || input.guests > 20) {
-      throw new Error("Escolha entre 1 e 20 convidados.");
+    if (
+      !Number.isFinite(childrenCount) ||
+      childrenCount < 0 ||
+      childrenCount > 20
+    ) {
+      throw new Error("Informe entre 0 e 20 crianças.");
     }
   }
-
-  if (input.status === "declined" && trimmedName.length < 2) {
-    throw new Error("Informe seu nome para avisar que não poderá ir.");
-  }
-
-  await new Promise((resolve) => {
-    window.setTimeout(resolve, 700);
-  });
 
   const rsvp: Rsvp = {
     id: createRsvpId(),
-    eventId: EVENT_ID,
+    eventId: getEventId(),
     name: trimmedName,
-    phone: "",
     status: input.status,
-    guests: input.status === "confirmed" ? input.guests : 0,
+    childrenCount,
     createdAt: new Date().toISOString(),
   };
 
-  saveStoredRsvp(rsvp);
+  const supabase = createServerClient();
+  const { error } = await supabase.from("rsvps").insert({
+    id: rsvp.id,
+    event_id: rsvp.eventId,
+    name: rsvp.name,
+    status: rsvp.status,
+    children_count: rsvp.childrenCount,
+    created_at: rsvp.createdAt,
+  });
+
+  if (error) {
+    throw new Error("Não conseguimos registrar sua resposta agora. Tente novamente, por favor.");
+  }
+
   return rsvp;
 }

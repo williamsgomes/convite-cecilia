@@ -1,4 +1,4 @@
-import { getApprovedMessages, getEvent, getGalleryPhotos, getTimelinePhotos } from "@/lib/data";
+import { getInvitationData } from "@/lib/data";
 
 import { BackgroundMusic } from "./BackgroundMusic";
 import { Closing } from "./Closing/Closing";
@@ -10,15 +10,12 @@ import { Messages } from "./Messages/Messages";
 import { Rsvp } from "./Rsvp/Rsvp";
 import { Story } from "./Story/Story";
 
-export function InvitationPage() {
-  const event = getEvent();
-  const messages = getApprovedMessages();
-  const timeline = getTimelinePhotos();
-  const gallery = getGalleryPhotos();
+export async function InvitationPage() {
+  const { event, messages, timeline, gallery } = await getInvitationData();
 
   return (
     <>
-      <main id="conteudo" className="flex-1">
+      <main id="conteudo" className="flex-1 overflow-x-clip">
         <Hero event={event} />
         <Story event={event} />
         <Countdown event={event} />

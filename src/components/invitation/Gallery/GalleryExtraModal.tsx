@@ -2,8 +2,9 @@
 
 import { X } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useId, useRef } from "react";
+import { useId } from "react";
 
+import { useDialogFocus } from "@/lib/a11y/use-dialog-focus";
 import type { GalleryPhoto } from "@/types/gallery";
 
 type GalleryExtraModalProps = {
@@ -22,44 +23,27 @@ export function GalleryExtraModal({
   suppressEscape = false,
 }: GalleryExtraModalProps) {
   const titleId = useId();
-  const closeRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    closeRef.current?.focus();
-
-    function handleKeyDown(event: KeyboardEvent) {
-      if (suppressEscape) {
-        return;
-      }
-
-      if (event.key === "Escape") {
-        onClose();
-      }
-    }
-
-    document.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [onClose, suppressEscape]);
+  const { panelRef, closeRef } = useDialogFocus(true, onClose, {
+    trap: !suppressEscape,
+    handleEscape: !suppressEscape,
+  });
 
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center p-4 sm:items-center">
       <button
         type="button"
+        tabIndex={-1}
         aria-label="Fechar galeria"
         className="absolute inset-0 bg-primary/40"
         onClick={onClose}
       />
 
       <div
+        ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
+        inert={suppressEscape}
         className="relative z-10 flex max-h-[85vh] w-full max-w-md flex-col rounded-lg bg-surface-raised p-5 shadow-lift sm:p-6"
       >
         <div className="mb-4 flex items-start justify-between gap-3">
@@ -94,6 +78,9 @@ export function GalleryExtraModal({
                     sizes="(max-width: 448px) 40vw, 180px"
                     className="object-cover"
                   />
+                </span>
+                <span className="mt-2 block truncate text-center font-hand text-sm font-semibold text-primary">
+                  {photo.caption ?? photo.alt}
                 </span>
               </button>
             </li>

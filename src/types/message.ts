@@ -1,3 +1,8 @@
+export type SubmitMessageInput = {
+  name: string;
+  message: string;
+};
+
 export type Message = {
   id: string;
   eventId: string;

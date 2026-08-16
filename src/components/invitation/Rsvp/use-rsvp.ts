@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from "react";
 
-import { getStoredRsvp } from "@/lib/rsvp/storage";
+import { getStoredRsvp, saveStoredRsvp } from "@/lib/rsvp/storage";
 import { submitRsvp } from "@/lib/rsvp/submit-rsvp";
 import type { Event } from "@/types/event";
 import type { Rsvp } from "@/types/rsvp";
@@ -22,7 +22,7 @@ export function useRsvp({ event }: UseRsvpOptions) {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [declineOpen, setDeclineOpen] = useState(false);
   const [name, setName] = useState("");
-  const [guests, setGuests] = useState(1);
+  const [childrenCount, setChildrenCount] = useState(0);
 
   const feedbackMessage =
     savedRsvp?.status === "confirmed"
@@ -38,6 +38,7 @@ export function useRsvp({ event }: UseRsvpOptions) {
 
       try {
         const response = await submitRsvp(input);
+        saveStoredRsvp(response);
         setSavedRsvp(response);
         setStatus("success");
         setConfirmOpen(false);
@@ -85,7 +86,7 @@ export function useRsvp({ event }: UseRsvpOptions) {
   async function handleConfirmSubmit() {
     await sendRsvp({
       name,
-      guests,
+      childrenCount,
       status: "confirmed",
     });
   }
@@ -93,7 +94,7 @@ export function useRsvp({ event }: UseRsvpOptions) {
   async function handleDeclineSubmit() {
     await sendRsvp({
       name,
-      guests: 0,
+      childrenCount: 0,
       status: "declined",
     });
   }
@@ -105,9 +106,9 @@ export function useRsvp({ event }: UseRsvpOptions) {
     confirmOpen,
     declineOpen,
     name,
-    guests,
+    childrenCount,
     setName,
-    setGuests,
+    setChildrenCount,
     openConfirmModal,
     openDeclineModal,
     closeConfirmModal,

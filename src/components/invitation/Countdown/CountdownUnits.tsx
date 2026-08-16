@@ -8,7 +8,7 @@ import { CountdownUnit } from "./CountdownUnit";
 
 type CountdownUnitsProps = {
   event: Event;
-  remaining: RemainingTime;
+  remaining: RemainingTime | null;
   isEnded: boolean;
 };
 
@@ -24,6 +24,24 @@ export function CountdownUnits({
   remaining,
   isEnded,
 }: CountdownUnitsProps) {
+  if (!remaining) {
+    return (
+      <div className="relative z-10 px-1 sm:px-2" aria-hidden>
+        <div className="grid grid-cols-4 gap-3 sm:gap-4">
+          {units.map(({ key, label, icon }) => (
+            <CountdownUnit
+              key={key}
+              value={0}
+              label={label}
+              icon={icon}
+              className="[&_span:first-child]:opacity-0"
+            />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   if (isEnded) {
     return (
       <div className="relative z-10 px-4 py-6 text-center">
@@ -44,7 +62,9 @@ export function CountdownUnits({
       aria-atomic="true"
       className="relative z-10 px-1 sm:px-2"
     >
-      <p className="sr-only">{formatCountdownAriaLabel(remaining)}</p>
+      <p className="sr-only">
+        {formatCountdownAriaLabel(remaining)}
+      </p>
 
       <div className="grid grid-cols-4 gap-3 sm:gap-4">
         {units.map(({ key, label, icon }) => (

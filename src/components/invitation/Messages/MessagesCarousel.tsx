@@ -84,9 +84,10 @@ export function MessagesCarousel({
 
   return (
     <div
+      role="region"
       tabIndex={0}
       onKeyDown={handleKeyDown}
-      className="mt-5 outline-none"
+      className="mt-5 rounded-md outline-none"
       aria-roledescription="carrossel"
       aria-label="Recadinhos"
     >

@@ -1,8 +1,9 @@
 "use client";
 
 import { X } from "lucide-react";
-import { useEffect, useId } from "react";
+import { useId } from "react";
 
+import { useDialogFocus } from "@/lib/a11y/use-dialog-focus";
 import { cn } from "@/lib/utils";
 
 type ModalProps = {
@@ -21,28 +22,7 @@ export function Modal({
   className,
 }: ModalProps) {
   const titleId = useId();
-
-  useEffect(() => {
-    if (!isOpen) {
-      return;
-    }
-
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        onClose();
-      }
-    }
-
-    document.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isOpen, onClose]);
+  const { panelRef, closeRef } = useDialogFocus(isOpen, onClose);
 
   if (!isOpen) {
     return null;
@@ -52,12 +32,14 @@ export function Modal({
     <div className="fixed inset-0 z-50 flex items-end justify-center p-4 sm:items-center">
       <button
         type="button"
+        tabIndex={-1}
         aria-label="Fechar"
         className="absolute inset-0 bg-primary/40"
         onClick={onClose}
       />
 
       <div
+        ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
@@ -71,6 +53,7 @@ export function Modal({
             {title}
           </h3>
           <button
+            ref={closeRef}
             type="button"
             aria-label="Fechar"
             onClick={onClose}

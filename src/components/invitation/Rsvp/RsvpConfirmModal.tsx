@@ -8,11 +8,11 @@ import { Modal } from "@/components/ui/Modal";
 type RsvpConfirmModalProps = {
   isOpen: boolean;
   name: string;
-  guests: number;
+  childrenCount: number;
   error?: string;
   isLoading: boolean;
   onNameChange: (value: string) => void;
-  onGuestsChange: (value: number) => void;
+  onChildrenCountChange: (value: number) => void;
   onClose: () => void;
   onSubmit: () => void;
 };
@@ -20,11 +20,11 @@ type RsvpConfirmModalProps = {
 export function RsvpConfirmModal({
   isOpen,
   name,
-  guests,
+  childrenCount,
   error,
   isLoading,
   onNameChange,
-  onGuestsChange,
+  onChildrenCountChange,
   onClose,
   onSubmit,
 }: RsvpConfirmModalProps) {
@@ -55,17 +55,23 @@ export function RsvpConfirmModal({
           />
         </Field>
 
-        <Field id="rsvp-convidados" label="Quantos convidados?" hint="Incluindo você.">
+        <Field
+          id="rsvp-criancas"
+          label="Quantas crianças vão?"
+          hint="Se não houver crianças, coloque 0."
+        >
           <Input
-            name="guests"
+            name="childrenCount"
             type="number"
             inputMode="numeric"
-            min={1}
+            min={0}
             max={20}
-            value={guests}
-            onChange={(event) => onGuestsChange(Number(event.target.value))}
+            value={Number.isFinite(childrenCount) ? childrenCount : 0}
+            onChange={(event) => {
+              const next = Number(event.target.value);
+              onChildrenCountChange(Number.isFinite(next) ? next : 0);
+            }}
             disabled={isLoading}
-            required
           />
         </Field>
 

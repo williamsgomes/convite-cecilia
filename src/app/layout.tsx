@@ -1,5 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Dancing_Script, Great_Vibes, Nunito } from "next/font/google";
+
+import { SITE_DESCRIPTION, SITE_NAME, getSiteUrl } from "@/lib/site";
 
 import "./globals.css";
 
@@ -24,17 +26,54 @@ const dancingScript = Dancing_Script({
   weight: ["400", "600", "700"],
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: "Fazendinha da Cecília",
-    template: "%s · Fazendinha da Cecília",
-  },
-  description:
-    "Convite de 1 aninho da Cecília. Uma festinha no campo, com carinho, para celebrar esse dia especial.",
-  applicationName: "Fazendinha da Cecília",
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#fdf7f2",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export const metadata: Metadata = {
+  metadataBase: new URL(getSiteUrl()),
+  title: {
+    default: SITE_NAME,
+    template: `%s · ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  icons: {
+    icon: "/images/decorations/heart.webp",
+    apple: "/images/decorations/heart.webp",
+  },
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    siteName: SITE_NAME,
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    images: [
+      {
+        url: "/images/baby/cecilia-baby.webp",
+        alt: "Cecília",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    images: ["/images/baby/cecilia-baby.webp"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html
       lang="pt-BR"

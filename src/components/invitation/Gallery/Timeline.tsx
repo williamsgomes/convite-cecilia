@@ -22,6 +22,7 @@ export function Timeline({ photos, onOpenPhoto }: TimelineProps) {
             key={photo.id}
             photo={photo}
             align={index % 2 === 0 ? "left" : "right"}
+            delay={Math.min(index * 0.04, 0.2)}
             onOpen={() => onOpenPhoto(index)}
           />
         ))}

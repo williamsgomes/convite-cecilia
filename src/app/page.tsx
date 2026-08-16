@@ -1,5 +1,5 @@
 import { InvitationPage } from "@/components/invitation/InvitationPage";
 
-export default function Home() {
+export default async function Home() {
   return <InvitationPage />;
 }

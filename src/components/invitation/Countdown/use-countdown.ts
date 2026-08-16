@@ -12,9 +12,7 @@ type UseCountdownOptions = {
 };
 
 export function useCountdown({ eventDate }: UseCountdownOptions) {
-  const [remaining, setRemaining] = useState<RemainingTime>(() =>
-    getRemainingTime(new Date(eventDate)),
-  );
+  const [remaining, setRemaining] = useState<RemainingTime | null>(null);
 
   useEffect(() => {
     const targetDate = new Date(eventDate);
@@ -43,6 +41,6 @@ export function useCountdown({ eventDate }: UseCountdownOptions) {
 
   return {
     remaining,
-    isEnded: remaining.totalMs <= 0,
+    isEnded: remaining !== null && remaining.totalMs <= 0,
   };
 }

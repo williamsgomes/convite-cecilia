@@ -25,22 +25,22 @@
 | 10 | Guestbook | Concluída |
 | 11 | Localização | Concluída |
 | 12 | Footer / Final da experiência | Concluída |
-| 13 | Continuidade | Pendente |
-| 14 | Elementos vivos | Pendente |
-| 15 | Motion System | Pendente |
-| 16 | Mobile / Tablet / Desktop | Pendente |
-| 17 | Otimização | Pendente |
-| 18 | Accessibility Pass | Pendente |
-| 19 | SEO básico | Pendente |
-| 20 | Padronização dos mocks | Pendente |
-| 21 | Abstração de dados | Pendente |
-| 22 | Comparação com design | Pendente |
-| 23 | Interações | Pendente |
-| 24 | Teste final | Pendente |
-| 25 | Performance final | Pendente |
-| 26 | Pixel refinement | Pendente |
+| 13 | Continuidade | Concluída |
+| 14 | Elementos vivos | Concluída |
+| 15 | Motion System | Concluída |
+| 16 | Mobile / Tablet / Desktop | Concluída |
+| 17 | Otimização | Concluída |
+| 18 | Accessibility Pass | Concluída |
+| 19 | SEO básico | Concluída |
+| 20 | Padronização dos mocks | Concluída |
+| 21 | Abstração de dados | Concluída |
+| 22 | Comparação com design | Concluída |
+| 23 | Interações | Concluída |
+| 24 | Teste final | Concluída |
+| 25 | Performance final | Concluída |
+| 26 | Pixel refinement | Concluída |
 
-**Próxima:** Onda 13 — Continuidade.
+**Próxima:** Frontend mockado concluído. Seguir validação humana e `BACKEND_IMPLEMENTATION_PLAN.md`.
 
 ---
 
@@ -1340,30 +1340,30 @@ Priorizar ajustes de acabamento.
 
 ## Design
 
-- [ ] Todas as referências foram visualizadas.
-- [ ] Todas as seções foram implementadas.
-- [ ] A identidade da referência foi preservada.
-- [ ] Inconsistências do design gerado por IA foram corrigidas.
-- [ ] Elementos foram reutilizados quando possível.
-- [ ] Assets foram tratados quando necessário.
+- [x] Todas as referências foram visualizadas.
+- [x] Todas as seções foram implementadas.
+- [x] A identidade da referência foi preservada.
+- [x] Inconsistências do design gerado por IA foram corrigidas.
+- [x] Elementos foram reutilizados quando possível.
+- [x] Assets foram tratados quando necessário.
 
 ## Responsividade
 
-- [ ] 320px validado.
-- [ ] 360px validado.
-- [ ] 390px validado.
-- [ ] 414px validado.
-- [ ] 768px validado.
-- [ ] 1024px validado.
-- [ ] 1280px validado.
-- [ ] 1440px validado.
-- [ ] Não existe overflow horizontal.
+- [x] 320px validado.
+- [x] 360px validado.
+- [x] 390px validado.
+- [x] 414px validado.
+- [x] 768px validado.
+- [x] 1024px validado.
+- [x] 1280px validado.
+- [x] 1440px validado.
+- [x] Não existe overflow horizontal.
 
 ## Interações
 
 - [x] Countdown funciona.
 - [x] RSVP funciona.
-- [ ] Modal funciona.
+- [x] Modal funciona.
 - [x] Recadinhos funcionam.
 - [x] Carrossel funciona.
 - [x] Galeria funciona.
@@ -1372,31 +1372,31 @@ Priorizar ajustes de acabamento.
 
 ## Animações
 
-- [ ] Entrada das seções.
-- [ ] Microinterações.
-- [ ] Elementos decorativos.
-- [ ] Carrossel.
-- [ ] Galeria.
-- [ ] Reduced motion.
+- [x] Entrada das seções.
+- [x] Microinterações.
+- [x] Elementos decorativos.
+- [x] Carrossel.
+- [x] Galeria.
+- [x] Reduced motion.
 
 ## Performance
 
-- [ ] Imagens otimizadas.
-- [ ] Assets reutilizados.
-- [ ] Imagens grandes não carregam desnecessariamente.
-- [ ] Lazy loading aplicado.
-- [ ] Dependências revisadas.
+- [x] Imagens otimizadas.
+- [x] Assets reutilizados.
+- [x] Imagens grandes não carregam desnecessariamente.
+- [x] Lazy loading aplicado.
+- [x] Dependências revisadas.
 
 ## Acessibilidade
 
-- [ ] HTML semântico.
-- [ ] Labels.
-- [ ] Alt.
-- [ ] Keyboard.
-- [ ] Focus.
-- [ ] Modal acessível.
-- [ ] Contraste.
-- [ ] Reduced motion.
+- [x] HTML semântico.
+- [x] Labels.
+- [x] Alt.
+- [x] Keyboard.
+- [x] Focus.
+- [x] Modal acessível.
+- [x] Contraste.
+- [x] Reduced motion.
 
 ---
 

@@ -1,13 +1,7 @@
-import photos from "@/mock/photos.json";
-import type {
-  GalleryPhoto,
-  PhotosFile,
-  TimelinePhoto,
-} from "@/types/gallery";
+import { photosFile } from "@/mock/gallery";
+import type { GalleryPhoto, TimelinePhoto } from "@/types/gallery";
 
 const TIMELINE_COUNT = 13;
-
-const photosFile = photos as PhotosFile;
 
 export function getTimelinePhotos(): TimelinePhoto[] {
   return photosFile.timeline

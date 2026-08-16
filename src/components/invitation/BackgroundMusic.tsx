@@ -96,7 +96,7 @@ export function BackgroundMusic() {
 
   return (
     <>
-      <audio ref={audioRef} loop preload="auto" src={MUSIC_SRC} />
+      <audio ref={audioRef} loop preload="metadata" src={MUSIC_SRC} />
 
       <div
         className={cn(

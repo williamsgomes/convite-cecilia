@@ -1,12 +1,9 @@
-import { EVENT_ID } from "@/mock/event";
-import type { Message } from "@/types/message";
+"use server";
 
-const MAX_MESSAGE_LENGTH = 200;
-
-export type SubmitMessageInput = {
-  name: string;
-  message: string;
-};
+import { getEventId } from "@/lib/data/events";
+import { MAX_MESSAGE_LENGTH } from "@/lib/messages/limits";
+import { createServerClient } from "@/lib/supabase/server";
+import type { Message, SubmitMessageInput } from "@/types/message";
 
 function createMessageId() {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
@@ -34,18 +31,27 @@ export async function submitMessage(
     throw new Error(`A mensagem pode ter no máximo ${MAX_MESSAGE_LENGTH} caracteres.`);
   }
 
-  await new Promise((resolve) => {
-    window.setTimeout(resolve, 700);
-  });
-
-  return {
+  const created: Message = {
     id: createMessageId(),
-    eventId: EVENT_ID,
+    eventId: getEventId(),
     name,
     message,
     approved: true,
     createdAt: new Date().toISOString(),
   };
-}
 
-export { MAX_MESSAGE_LENGTH };
+  const supabase = createServerClient();
+  const { error } = await supabase.from("messages").insert({
+    id: created.id,
+    event_id: created.eventId,
+    name: created.name,
+    message: created.message,
+    created_at: created.createdAt,
+  });
+
+  if (error) {
+    throw new Error("Não conseguimos enviar agora. Tente novamente, por favor.");
+  }
+
+  return created;
+}

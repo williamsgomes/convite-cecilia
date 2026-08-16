@@ -5,7 +5,9 @@ import { motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 
 import { DecorImage } from "@/components/decorations/DecorImage";
+import { invitationInnerClass, invitationSectionClass } from "@/components/invitation/section-classes";
 import { Heading } from "@/components/ui/Heading";
+import { fadeUp } from "@/lib/motion";
 import { submitMessage } from "@/lib/messages/submit-message";
 import type { Event } from "@/types/event";
 import type { Message } from "@/types/message";
@@ -22,20 +24,6 @@ export function Messages({ event, messages: initialMessages }: MessagesProps) {
   const reduceMotion = useReducedMotion();
   const [messages, setMessages] = useState(initialMessages);
 
-  const fadeUp = (delay = 0) =>
-    reduceMotion
-      ? {}
-      : {
-          initial: { opacity: 0, y: 12 },
-          whileInView: { opacity: 1, y: 0 },
-          viewport: { once: true, amount: 0.2 },
-          transition: {
-            duration: 0.6,
-            delay,
-            ease: [0.22, 1, 0.36, 1] as const,
-          },
-        };
-
   async function handleSubmitMessage(input: { name: string; message: string }) {
     const created = await submitMessage(input);
     setMessages((current) => [created, ...current]);
@@ -46,10 +34,10 @@ export function Messages({ event, messages: initialMessages }: MessagesProps) {
     <section
       id="recadinhos"
       aria-labelledby="recadinhos-titulo"
-      className="relative scroll-mt-6 overflow-x-clip bg-surface"
+      className={`${invitationSectionClass} bg-surface`}
     >
-      <div className="mx-auto w-full max-w-md px-4 pt-14 pb-12 sm:pt-16">
-        <motion.div {...fadeUp(0)}>
+      <div className={invitationInnerClass}>
+        <motion.div {...fadeUp(reduceMotion)}>
           <div className="text-center">
             <Heading
               level={2}
@@ -87,7 +75,7 @@ export function Messages({ event, messages: initialMessages }: MessagesProps) {
           </div>
         </motion.div>
 
-        <motion.div className="mt-8" {...fadeUp(0.08)}>
+        <motion.div className="mt-8" {...fadeUp(reduceMotion, 0.08)}>
           <div className="flex items-center justify-center gap-2 text-center">
             <Heart
               aria-hidden

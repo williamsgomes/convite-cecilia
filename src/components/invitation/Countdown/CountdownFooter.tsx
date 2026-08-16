@@ -14,12 +14,16 @@ export function CountdownFooter() {
           className="absolute bottom-[38%] left-[3%] z-10 w-[24%] max-w-28 translate-y-8 opacity-95 sm:left-[5%] sm:w-[26%] sm:max-w-32"
         />
 
-        <DecorImage
-          src="/images/animals/pig.webp"
-          width={200}
-          height={220}
-          className="absolute right-[3%] bottom-[34%] z-10 w-[22%] max-w-24 translate-y-8 opacity-95 sm:right-[5%] sm:w-[24%] sm:max-w-28"
-        />
+        <div className="absolute right-[3%] bottom-[34%] z-10 w-[22%] max-w-24 translate-y-8 sm:right-[5%] sm:w-[24%] sm:max-w-28">
+          <div className="animate-float-slow">
+            <DecorImage
+              src="/images/animals/pig.webp"
+              width={200}
+              height={220}
+              className="w-full opacity-95"
+            />
+          </div>
+        </div>
 
         <DecorImage
           src="/images/farm/fence-gate.webp"

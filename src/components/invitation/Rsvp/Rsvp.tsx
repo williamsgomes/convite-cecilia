@@ -2,6 +2,8 @@
 
 import { motion, useReducedMotion } from "motion/react";
 
+import { invitationInnerClass, invitationSectionClass } from "@/components/invitation/section-classes";
+import { fadeUp } from "@/lib/motion";
 import type { Event } from "@/types/event";
 
 import { RsvpConfirmModal } from "./RsvpConfirmModal";
@@ -22,9 +24,9 @@ export function Rsvp({ event }: RsvpProps) {
     confirmOpen,
     declineOpen,
     name,
-    guests,
+    childrenCount,
     setName,
-    setGuests,
+    setChildrenCount,
     openConfirmModal,
     openDeclineModal,
     closeConfirmModal,
@@ -33,18 +35,6 @@ export function Rsvp({ event }: RsvpProps) {
     handleDeclineSubmit,
   } = useRsvp({ event });
 
-  const fadeUp = reduceMotion
-    ? {}
-    : {
-        initial: { opacity: 0, y: 12 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true, amount: 0.2 },
-        transition: {
-          duration: 0.6,
-          ease: [0.22, 1, 0.36, 1] as const,
-        },
-      };
-
   const isBusy = status === "loading";
   const hasResponded = status === "success" && feedbackMessage;
 
@@ -52,10 +42,10 @@ export function Rsvp({ event }: RsvpProps) {
     <section
       id="confirmacao"
       aria-labelledby="confirmacao-titulo"
-      className="relative scroll-mt-6 overflow-x-clip bg-surface-sunken"
+      className={`${invitationSectionClass} bg-surface-sunken`}
     >
-      <div className="mx-auto w-full max-w-md px-4 py-10 sm:py-12">
-        <motion.div {...fadeUp}>
+      <div className={invitationInnerClass}>
+        <motion.div {...fadeUp(reduceMotion)}>
           <div className="relative overflow-visible px-1 pt-2 pb-6 sm:px-2 sm:pb-8">
             {hasResponded ? (
               <RsvpFeedback event={event} message={feedbackMessage} />
@@ -82,11 +72,11 @@ export function Rsvp({ event }: RsvpProps) {
       <RsvpConfirmModal
         isOpen={confirmOpen}
         name={name}
-        guests={guests}
+        childrenCount={childrenCount}
         error={errorMessage ?? undefined}
         isLoading={isBusy}
         onNameChange={setName}
-        onGuestsChange={setGuests}
+        onChildrenCountChange={setChildrenCount}
         onClose={closeConfirmModal}
         onSubmit={handleConfirmSubmit}
       />

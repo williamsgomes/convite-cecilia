@@ -4,6 +4,8 @@ import { Heart } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 
 import { DecorImage } from "@/components/decorations/DecorImage";
+import { invitationSectionClass } from "@/components/invitation/section-classes";
+import { fadeUp } from "@/lib/motion";
 import type { Event } from "@/types/event";
 
 type ClosingProps = {
@@ -13,26 +15,14 @@ type ClosingProps = {
 export function Closing({ event }: ClosingProps) {
   const reduceMotion = useReducedMotion();
 
-  const fadeUp = reduceMotion
-    ? {}
-    : {
-        initial: { opacity: 0, y: 12 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true, amount: 0.2 },
-        transition: {
-          duration: 0.6,
-          ease: [0.22, 1, 0.36, 1] as const,
-        },
-      };
-
   return (
     <section
       id="encerramento"
       aria-labelledby="encerramento-titulo"
-      className="relative bg-surface"
+      className={`${invitationSectionClass} bg-surface`}
     >
-      <div className="mx-auto w-full max-w-md px-4 pt-8">
-        <motion.div className="text-center" {...fadeUp}>
+      <div className="mx-auto w-full max-w-md px-4 pt-4">
+        <motion.div className="text-center" {...fadeUp(reduceMotion)}>
           <div className="rounded-lg border border-dashed border-accent/50 px-5 py-5">
             <p id="encerramento-titulo" className="sr-only">
               {event.closingLine1} {event.closingLine2}

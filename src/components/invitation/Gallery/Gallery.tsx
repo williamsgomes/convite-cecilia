@@ -5,7 +5,9 @@ import { motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 
 import { DecorImage } from "@/components/decorations/DecorImage";
+import { invitationSectionClass } from "@/components/invitation/section-classes";
 import { Heading } from "@/components/ui/Heading";
+import { fadeUp } from "@/lib/motion";
 import type { Event } from "@/types/event";
 import type {
   GalleryPhoto,
@@ -33,18 +35,6 @@ export function Gallery({ event, timeline, gallery }: GalleryProps) {
   const reduceMotion = useReducedMotion();
   const [extraOpen, setExtraOpen] = useState(false);
   const [lightbox, setLightbox] = useState<LightboxState | null>(null);
-
-  const fadeUp = reduceMotion
-    ? {}
-    : {
-        initial: { opacity: 0, y: 12 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true, amount: 0.2 },
-        transition: {
-          duration: 0.6,
-          ease: [0.22, 1, 0.36, 1] as const,
-        },
-      };
 
   function openTimeline(index: number) {
     setLightbox({
@@ -74,10 +64,10 @@ export function Gallery({ event, timeline, gallery }: GalleryProps) {
     <section
       id="momentos"
       aria-labelledby="momentos-titulo"
-      className="relative scroll-mt-6 overflow-x-clip bg-surface"
+      className={`${invitationSectionClass} bg-surface`}
     >
-      <div className="mx-auto w-full max-w-md pt-14 pb-12 sm:pt-16">
-        <motion.div className="px-4" {...fadeUp}>
+      <div className="mx-auto w-full max-w-md py-10 sm:py-12">
+        <motion.div className="px-4" {...fadeUp(reduceMotion)}>
           <div className="text-center">
             <Heading
               level={2}
@@ -93,19 +83,21 @@ export function Gallery({ event, timeline, gallery }: GalleryProps) {
           </div>
         </motion.div>
 
-        <motion.div className="mt-2" {...fadeUp}>
+        <motion.div className="mt-2" {...fadeUp(reduceMotion)}>
           <Timeline photos={timeline} onOpenPhoto={openTimeline} />
         </motion.div>
 
         {gallery.length > 0 ? (
-          <motion.div className="relative mt-8 px-4" {...fadeUp}>
+          <motion.div className="relative mt-8 px-4" {...fadeUp(reduceMotion)}>
             <div className="flex items-end gap-3">
-              <DecorImage
-                src="/images/animals/pony.webp"
-                width={400}
-                height={360}
-                className="!w-20 max-w-none shrink-0"
-              />
+              <div className="animate-float-slow shrink-0">
+                <DecorImage
+                  src="/images/animals/pony.webp"
+                  width={400}
+                  height={360}
+                  className="!w-20 max-w-none"
+                />
+              </div>
               <div className="flex min-w-0 flex-1 flex-col items-center gap-2 pb-1">
                 <GalleryMoreButton
                   label={event.galleryMoreLabel}

@@ -84,6 +84,10 @@ body {
   padding: 0.625rem 0.625rem 2.5rem;
 }
 
+.polaroid-frame-tight {
+  padding: 0.5rem;
+}
+
 .polaroid-photo {
   box-shadow: var(--shadow-soft);
 }
@@ -101,6 +105,10 @@ body {
 @media (prefers-reduced-motion: no-preference) {
   .animate-float {
     animation: float-y 4.5s ease-in-out infinite;
+  }
+
+  .animate-float-slow {
+    animation: float-y 6.5s ease-in-out infinite;
   }
 }
 

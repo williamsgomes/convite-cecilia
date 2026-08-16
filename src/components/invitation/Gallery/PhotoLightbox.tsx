@@ -2,8 +2,9 @@
 
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useId, useRef } from "react";
+import { useId, useRef } from "react";
 
+import { useDialogFocus } from "@/lib/a11y/use-dialog-focus";
 import { cn } from "@/lib/utils";
 import type { LightboxPhoto } from "@/types/gallery";
 
@@ -25,40 +26,30 @@ export function PhotoLightbox({
   reduceMotion = false,
 }: PhotoLightboxProps) {
   const titleId = useId();
-  const closeRef = useRef<HTMLButtonElement>(null);
   const pointerStartX = useRef<number | null>(null);
+  const indexRef = useRef(index);
+  const onGoToRef = useRef(onGoTo);
   const photo = photos[index];
   const count = photos.length;
 
-  useEffect(() => {
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    closeRef.current?.focus();
+  indexRef.current = index;
+  onGoToRef.current = onGoTo;
 
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        event.stopPropagation();
-        onClose();
-      }
-
+  const { panelRef, closeRef } = useDialogFocus(true, onClose, {
+    onKeyDown(event) {
       if (event.key === "ArrowLeft") {
         event.preventDefault();
-        onGoTo(((index - 1) % count + count) % count);
+        const current = indexRef.current;
+        onGoToRef.current(((current - 1) % count + count) % count);
       }
 
       if (event.key === "ArrowRight") {
         event.preventDefault();
-        onGoTo(((index + 1) % count + count) % count);
+        const current = indexRef.current;
+        onGoToRef.current(((current + 1) % count + count) % count);
       }
-    }
-
-    document.addEventListener("keydown", handleKeyDown, true);
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      document.removeEventListener("keydown", handleKeyDown, true);
-    };
-  }, [count, index, onClose, onGoTo]);
+    },
+  });
 
   if (!photo) {
     return null;
@@ -87,12 +78,14 @@ export function PhotoLightbox({
     <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
       <button
         type="button"
+        tabIndex={-1}
         aria-label="Fechar foto"
         className="absolute inset-0 bg-primary/70"
         onClick={onClose}
       />
 
       <div
+        ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
@@ -130,7 +123,6 @@ export function PhotoLightbox({
               fill
               sizes="(max-width: 448px) 90vw, 448px"
               className="object-cover"
-              priority
             />
           </div>
         </div>

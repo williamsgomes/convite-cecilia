@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/Textarea";
-import { MAX_MESSAGE_LENGTH } from "@/lib/messages/submit-message";
+import { MAX_MESSAGE_LENGTH } from "@/lib/messages/limits";
 import type { Event } from "@/types/event";
 import type { Message } from "@/types/message";
 

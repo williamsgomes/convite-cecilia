@@ -2,6 +2,8 @@
 
 import { motion, useReducedMotion } from "motion/react";
 
+import { invitationInnerClass, invitationSectionClass } from "@/components/invitation/section-classes";
+import { fadeUp } from "@/lib/motion";
 import type { Event } from "@/types/event";
 
 import { CountdownFooter } from "./CountdownFooter";
@@ -17,26 +19,14 @@ export function Countdown({ event }: CountdownProps) {
   const reduceMotion = useReducedMotion();
   const { remaining, isEnded } = useCountdown({ eventDate: event.eventDate });
 
-  const fadeUp = reduceMotion
-    ? {}
-    : {
-        initial: { opacity: 0, y: 12 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true, amount: 0.2 },
-        transition: {
-          duration: 0.6,
-          ease: [0.22, 1, 0.36, 1] as const,
-        },
-      };
-
   return (
     <section
       id="contagem"
       aria-labelledby="contagem-titulo"
-      className="relative scroll-mt-6 overflow-x-clip bg-surface"
+      className={`${invitationSectionClass} bg-surface`}
     >
-      <div className="mx-auto w-full max-w-md px-4 py-10 sm:py-12">
-        <motion.div {...fadeUp}>
+      <div className={invitationInnerClass}>
+        <motion.div {...fadeUp(reduceMotion)}>
           <div className="relative overflow-visible rounded-lg bg-accent/10 px-3 pb-4 shadow-soft sm:px-4">
             <CountdownHeader event={event} />
 
