@@ -1,7 +1,6 @@
 "use client";
 
 import { Music, Pause } from "lucide-react";
-import { useReducedMotion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/Button";
@@ -9,19 +8,20 @@ import { cn } from "@/lib/utils";
 
 const MUSIC_SRC = "/music.mp3";
 const DEFAULT_VOLUME = 0.6;
+const UNLOCK_EVENTS = ["pointerdown", "touchstart", "click", "keydown"] as const;
 
 export function BackgroundMusic() {
-  const reduceMotion = useReducedMotion();
   const audioRef = useRef<HTMLAudioElement>(null);
   const userPausedRef = useRef(false);
-  const resumeOnVisibleRef = useRef(false);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const playMusic = useCallback(async () => {
     const audio = audioRef.current;
-    if (!audio) return false;
+    if (!audio || userPausedRef.current) return false;
 
     try {
+      audio.muted = false;
+      audio.volume = DEFAULT_VOLUME;
       await audio.play();
       setIsPlaying(true);
       return true;
@@ -44,6 +44,7 @@ export function BackgroundMusic() {
     if (!audio) return;
 
     audio.volume = DEFAULT_VOLUME;
+    audio.muted = false;
 
     const onPlay = () => setIsPlaying(true);
     const onPause = () => setIsPlaying(false);
@@ -53,53 +54,53 @@ export function BackgroundMusic() {
 
     let disposed = false;
 
-    function tryPlayOnInteraction() {
-      if (!disposed) {
-        void playMusic();
+    async function tryStart() {
+      if (disposed || userPausedRef.current || document.hidden) {
+        return false;
       }
+
+      return playMusic();
     }
 
-    async function init() {
-      if (reduceMotion) return;
+    function onUnlock(event: Event) {
+      if (
+        event.target instanceof Element &&
+        event.target.closest("[data-music-toggle]")
+      ) {
+        return;
+      }
 
-      const started = await playMusic();
-      if (disposed || started) return;
-
-      document.addEventListener("click", tryPlayOnInteraction, { once: true });
-      document.addEventListener("touchstart", tryPlayOnInteraction, {
-        once: true,
+      void tryStart().then((started) => {
+        if (started) {
+          removeUnlockListeners();
+        }
       });
     }
 
-    void init();
-
-    return () => {
-      disposed = true;
-      document.removeEventListener("click", tryPlayOnInteraction);
-      document.removeEventListener("touchstart", tryPlayOnInteraction);
-      audio.removeEventListener("play", onPlay);
-      audio.removeEventListener("pause", onPause);
-    };
-  }, [playMusic, reduceMotion]);
-
-  useEffect(() => {
-    function hidePage() {
-      const audio = audioRef.current;
-      if (!audio || audio.paused) {
-        return;
+    function addUnlockListeners() {
+      for (const eventName of UNLOCK_EVENTS) {
+        document.addEventListener(eventName, onUnlock, {
+          capture: true,
+        });
       }
+    }
 
-      resumeOnVisibleRef.current = !userPausedRef.current;
-      pauseMusic();
+    function removeUnlockListeners() {
+      for (const eventName of UNLOCK_EVENTS) {
+        document.removeEventListener(eventName, onUnlock, {
+          capture: true,
+        });
+      }
+    }
+
+    function hidePage() {
+      if (!audio.paused) {
+        pauseMusic();
+      }
     }
 
     function showPage() {
-      if (document.hidden || userPausedRef.current || !resumeOnVisibleRef.current) {
-        return;
-      }
-
-      resumeOnVisibleRef.current = false;
-      void playMusic();
+      void tryStart();
     }
 
     function onVisibilityChange() {
@@ -111,15 +112,29 @@ export function BackgroundMusic() {
       showPage();
     }
 
+    void tryStart().then((started) => {
+      if (!started && !disposed) {
+        addUnlockListeners();
+      }
+    });
+
+    audio.addEventListener("canplay", showPage);
     document.addEventListener("visibilitychange", onVisibilityChange);
     window.addEventListener("pagehide", hidePage);
     window.addEventListener("pageshow", showPage);
+    window.addEventListener("focus", showPage);
     window.addEventListener("freeze", hidePage);
 
     return () => {
+      disposed = true;
+      removeUnlockListeners();
+      audio.removeEventListener("play", onPlay);
+      audio.removeEventListener("pause", onPause);
+      audio.removeEventListener("canplay", showPage);
       document.removeEventListener("visibilitychange", onVisibilityChange);
       window.removeEventListener("pagehide", hidePage);
       window.removeEventListener("pageshow", showPage);
+      window.removeEventListener("focus", showPage);
       window.removeEventListener("freeze", hidePage);
     };
   }, [pauseMusic, playMusic]);
@@ -130,13 +145,11 @@ export function BackgroundMusic() {
 
     if (audio.paused) {
       userPausedRef.current = false;
-      resumeOnVisibleRef.current = false;
       void playMusic();
       return;
     }
 
     userPausedRef.current = true;
-    resumeOnVisibleRef.current = false;
     pauseMusic();
   }
 
@@ -144,7 +157,14 @@ export function BackgroundMusic() {
 
   return (
     <>
-      <audio ref={audioRef} loop preload="metadata" src={MUSIC_SRC} />
+      <audio
+        ref={audioRef}
+        loop
+        autoPlay
+        playsInline
+        preload="auto"
+        src={MUSIC_SRC}
+      />
 
       <div
         className={cn(
@@ -158,6 +178,7 @@ export function BackgroundMusic() {
           variant="outline"
           aria-label={label}
           aria-pressed={isPlaying}
+          data-music-toggle
           onClick={handleToggle}
           className="size-11 min-h-0 shrink-0 rounded-full p-0 text-accent-strong shadow-lift"
         >
