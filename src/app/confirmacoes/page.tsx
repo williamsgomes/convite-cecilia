@@ -33,6 +33,7 @@ function RsvpTable({ title, rows }: { title: string; rows: Rsvp[] }) {
           <thead className="bg-neutral-50 text-neutral-600">
             <tr>
               <th className="px-4 py-3 font-medium">Nome</th>
+              <th className="px-4 py-3 font-medium">Adultos</th>
               <th className="px-4 py-3 font-medium">Crianças</th>
               <th className="px-4 py-3 font-medium">Quando</th>
             </tr>
@@ -40,7 +41,7 @@ function RsvpTable({ title, rows }: { title: string; rows: Rsvp[] }) {
           <tbody>
             {rows.length === 0 ? (
               <tr>
-                <td className="px-4 py-6 text-neutral-500" colSpan={3}>
+                <td className="px-4 py-6 text-neutral-500" colSpan={4}>
                   Nenhuma resposta nesta lista ainda.
                 </td>
               </tr>
@@ -48,6 +49,7 @@ function RsvpTable({ title, rows }: { title: string; rows: Rsvp[] }) {
               rows.map((row) => (
                 <tr key={row.id} className="border-t border-neutral-100">
                   <td className="px-4 py-3 font-medium text-neutral-900">{row.name}</td>
+                  <td className="px-4 py-3 text-neutral-700">{row.adultsCount}</td>
                   <td className="px-4 py-3 text-neutral-700">{row.childrenCount}</td>
                   <td className="px-4 py-3 text-neutral-500">{formatDate(row.createdAt)}</td>
                 </tr>
@@ -110,6 +112,7 @@ export default async function ConfirmacoesPage({
   const confirmed = rsvps.filter((item) => item.status === "confirmed");
   const declined = rsvps.filter((item) => item.status === "declined");
   const childrenTotal = confirmed.reduce((sum, item) => sum + item.childrenCount, 0);
+  const adultsTotal = confirmed.reduce((sum, item) => sum + item.adultsCount, 0);
 
   return (
     <main className="mx-auto w-full max-w-3xl px-4 py-10">
@@ -130,7 +133,7 @@ export default async function ConfirmacoesPage({
         </form>
       </div>
 
-      <dl className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
+      <dl className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
         <div className="rounded-lg border border-neutral-200 bg-white px-4 py-4">
           <dt className="text-sm text-neutral-500">Vão</dt>
           <dd className="mt-1 text-2xl font-semibold text-neutral-900">{confirmed.length}</dd>
@@ -138,6 +141,10 @@ export default async function ConfirmacoesPage({
         <div className="rounded-lg border border-neutral-200 bg-white px-4 py-4">
           <dt className="text-sm text-neutral-500">Não vão</dt>
           <dd className="mt-1 text-2xl font-semibold text-neutral-900">{declined.length}</dd>
+        </div>
+        <div className="rounded-lg border border-neutral-200 bg-white px-4 py-4">
+          <dt className="text-sm text-neutral-500">Adultos</dt>
+          <dd className="mt-1 text-2xl font-semibold text-neutral-900">{adultsTotal}</dd>
         </div>
         <div className="rounded-lg border border-neutral-200 bg-white px-4 py-4">
           <dt className="text-sm text-neutral-500">Crianças</dt>

@@ -8,22 +8,31 @@ import { Modal } from "@/components/ui/Modal";
 type RsvpConfirmModalProps = {
   isOpen: boolean;
   name: string;
+  adultsCount: number;
   childrenCount: number;
   error?: string;
   isLoading: boolean;
   onNameChange: (value: string) => void;
+  onAdultsCountChange: (value: number) => void;
   onChildrenCountChange: (value: number) => void;
   onClose: () => void;
   onSubmit: () => void;
 };
 
+function parseCount(value: string) {
+  const next = Number(value);
+  return Number.isFinite(next) ? next : 0;
+}
+
 export function RsvpConfirmModal({
   isOpen,
   name,
+  adultsCount,
   childrenCount,
   error,
   isLoading,
   onNameChange,
+  onAdultsCountChange,
   onChildrenCountChange,
   onClose,
   onSubmit,
@@ -55,25 +64,41 @@ export function RsvpConfirmModal({
           />
         </Field>
 
-        <Field
-          id="rsvp-criancas"
-          label="Quantas crianças vão?"
-          hint="Se não houver crianças, coloque 0."
-        >
-          <Input
-            name="childrenCount"
-            type="number"
-            inputMode="numeric"
-            min={0}
-            max={20}
-            value={Number.isFinite(childrenCount) ? childrenCount : 0}
-            onChange={(event) => {
-              const next = Number(event.target.value);
-              onChildrenCountChange(Number.isFinite(next) ? next : 0);
-            }}
-            disabled={isLoading}
-          />
-        </Field>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <Field
+            id="rsvp-adultos"
+            label="Quantos adultos vão?"
+            hint="Incluindo você. Se não houver, coloque 0."
+          >
+            <Input
+              name="adultsCount"
+              type="number"
+              inputMode="numeric"
+              min={0}
+              max={20}
+              value={Number.isFinite(adultsCount) ? adultsCount : 1}
+              onChange={(event) => onAdultsCountChange(parseCount(event.target.value))}
+              disabled={isLoading}
+            />
+          </Field>
+
+          <Field
+            id="rsvp-criancas"
+            label="Quantas crianças vão?"
+            hint="Se não houver crianças, coloque 0."
+          >
+            <Input
+              name="childrenCount"
+              type="number"
+              inputMode="numeric"
+              min={0}
+              max={20}
+              value={Number.isFinite(childrenCount) ? childrenCount : 0}
+              onChange={(event) => onChildrenCountChange(parseCount(event.target.value))}
+              disabled={isLoading}
+            />
+          </Field>
+        </div>
 
         <div className="flex flex-col gap-3 pt-2 sm:flex-row">
           <Button

@@ -22,6 +22,7 @@ export function useRsvp({ event }: UseRsvpOptions) {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [declineOpen, setDeclineOpen] = useState(false);
   const [name, setName] = useState("");
+  const [adultsCount, setAdultsCount] = useState(1);
   const [childrenCount, setChildrenCount] = useState(0);
 
   const feedbackMessage =
@@ -86,6 +87,7 @@ export function useRsvp({ event }: UseRsvpOptions) {
   async function handleConfirmSubmit() {
     await sendRsvp({
       name,
+      adultsCount,
       childrenCount,
       status: "confirmed",
     });
@@ -94,6 +96,7 @@ export function useRsvp({ event }: UseRsvpOptions) {
   async function handleDeclineSubmit() {
     await sendRsvp({
       name,
+      adultsCount: 0,
       childrenCount: 0,
       status: "declined",
     });
@@ -106,8 +109,10 @@ export function useRsvp({ event }: UseRsvpOptions) {
     confirmOpen,
     declineOpen,
     name,
+    adultsCount,
     childrenCount,
     setName,
+    setAdultsCount,
     setChildrenCount,
     openConfirmModal,
     openDeclineModal,

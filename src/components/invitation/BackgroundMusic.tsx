@@ -13,6 +13,8 @@ const DEFAULT_VOLUME = 0.6;
 export function BackgroundMusic() {
   const reduceMotion = useReducedMotion();
   const audioRef = useRef<HTMLAudioElement>(null);
+  const userPausedRef = useRef(false);
+  const resumeOnVisibleRef = useRef(false);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const playMusic = useCallback(async () => {
@@ -80,15 +82,61 @@ export function BackgroundMusic() {
     };
   }, [playMusic, reduceMotion]);
 
+  useEffect(() => {
+    function hidePage() {
+      const audio = audioRef.current;
+      if (!audio || audio.paused) {
+        return;
+      }
+
+      resumeOnVisibleRef.current = !userPausedRef.current;
+      pauseMusic();
+    }
+
+    function showPage() {
+      if (document.hidden || userPausedRef.current || !resumeOnVisibleRef.current) {
+        return;
+      }
+
+      resumeOnVisibleRef.current = false;
+      void playMusic();
+    }
+
+    function onVisibilityChange() {
+      if (document.hidden) {
+        hidePage();
+        return;
+      }
+
+      showPage();
+    }
+
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    window.addEventListener("pagehide", hidePage);
+    window.addEventListener("pageshow", showPage);
+    window.addEventListener("freeze", hidePage);
+
+    return () => {
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+      window.removeEventListener("pagehide", hidePage);
+      window.removeEventListener("pageshow", showPage);
+      window.removeEventListener("freeze", hidePage);
+    };
+  }, [pauseMusic, playMusic]);
+
   function handleToggle() {
     const audio = audioRef.current;
     if (!audio) return;
 
     if (audio.paused) {
+      userPausedRef.current = false;
+      resumeOnVisibleRef.current = false;
       void playMusic();
       return;
     }
 
+    userPausedRef.current = true;
+    resumeOnVisibleRef.current = false;
     pauseMusic();
   }
 

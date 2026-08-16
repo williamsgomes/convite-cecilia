@@ -1,4 +1,4 @@
-import { mkdir } from "node:fs/promises";
+import { mkdir, readdir } from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
 
@@ -120,16 +120,36 @@ async function publish({
 
 async function publishFlatSource({ src, dest, maxWidth, quality = 86 }) {
   await mkdir(path.dirname(dest), { recursive: true });
-  let pipeline = sharp(src);
-  const meta = await pipeline.metadata();
+  const meta = await sharp(src).rotate().metadata();
+  let pipeline = sharp(src).rotate();
   if (maxWidth && meta.width && meta.width > maxWidth) {
-    pipeline = sharp(src).resize({
+    pipeline = pipeline.resize({
       width: maxWidth,
       withoutEnlargement: true,
     });
   }
 
   const info = await pipeline.webp({ quality, effort: 6 }).toFile(dest);
+
+  console.log(
+    `${path.relative(PUBLIC, dest)}  ${info.width}×${info.height}  ${(info.size / 1024).toFixed(0)}KB`,
+  );
+
+  return info;
+}
+
+async function publishJpegSource({ src, dest, maxWidth, quality = 88 }) {
+  await mkdir(path.dirname(dest), { recursive: true });
+  const meta = await sharp(src).rotate().metadata();
+  let pipeline = sharp(src).rotate().flatten({ background: "#fdf7f2" });
+  if (maxWidth && meta.width && meta.width > maxWidth) {
+    pipeline = pipeline.resize({
+      width: maxWidth,
+      withoutEnlargement: true,
+    });
+  }
+
+  const info = await pipeline.jpeg({ quality, mozjpeg: true }).toFile(dest);
 
   console.log(
     `${path.relative(PUBLIC, dest)}  ${info.width}×${info.height}  ${(info.size / 1024).toFixed(0)}KB`,
@@ -382,26 +402,56 @@ console.log(
   `backgrounds/hero.webp  ${fundoInfo.width}×${fundoInfo.height}  ${(fundoInfo.size / 1024).toFixed(0)}KB`,
 );
 
-const gallerySources = [
-  { file: "farm/barn.webp", name: "01.webp" },
-  { file: "farm/tree.webp", name: "02.webp" },
-  { file: "animals/pony.webp", name: "03.webp" },
-  { file: "flowers/cluster.webp", name: "04.webp" },
-  { file: "farm/hay.webp", name: "05.webp" },
-  { file: "animals/duck.webp", name: "06.webp" },
-];
-
-for (const item of gallerySources) {
-  const dest = path.join(PUBLIC, "gallery", item.name);
-  await mkdir(path.dirname(dest), { recursive: true });
-  const info = await sharp(path.join(PUBLIC, item.file))
-    .flatten({ background: "#fdf7f2" })
-    .resize(1200, 900, { fit: "cover", position: "attention" })
-    .webp({ quality: 78, effort: 5 })
-    .toFile(dest);
-  console.log(
-    `gallery/${item.name}  ${info.width}×${info.height}  ${(info.size / 1024).toFixed(0)}KB`,
-  );
+for (let month = 0; month <= 12; month += 1) {
+  await publishFlatSource({
+    src: path.join(EXPORTS, "fotos-linha-do-tempo", `cecilia-${month}.jpeg`),
+    dest: path.join(PUBLIC, "timeline", `cecilia-${month}.webp`),
+    maxWidth: 1200,
+    quality: 86,
+  });
 }
+
+function gallerySortKey(name) {
+  const numbered = name.match(/^galeria-(\d+)\.(jpe?g)$/i);
+  if (numbered) {
+    return [0, Number(numbered[1]), name];
+  }
+
+  if (/^galeria-+/i.test(name)) {
+    return [1, name.length, name];
+  }
+
+  return [2, 0, name];
+}
+
+function compareGalleryFiles(left, right) {
+  const a = gallerySortKey(left);
+  const b = gallerySortKey(right);
+  if (a[0] !== b[0]) return a[0] - b[0];
+  if (a[1] !== b[1]) return a[1] - b[1];
+  return String(a[2]).localeCompare(String(b[2]), "en");
+}
+
+const extraGalleryDir = path.join(EXPORTS, "mais-fotos");
+const extraGalleryFiles = (await readdir(extraGalleryDir))
+  .filter((name) => /\.(jpe?g)$/i.test(name))
+  .sort(compareGalleryFiles);
+
+for (const [index, fileName] of extraGalleryFiles.entries()) {
+  const destName = `gallery-${String(index + 1).padStart(2, "0")}.webp`;
+  await publishFlatSource({
+    src: path.join(extraGalleryDir, fileName),
+    dest: path.join(PUBLIC, "gallery", destName),
+    maxWidth: 1200,
+    quality: 86,
+  });
+}
+
+await publishJpegSource({
+  src: path.join(EXPORTS, "compartilhamento.png"),
+  dest: path.join(PUBLIC, "share", "compartilhamento.jpg"),
+  maxWidth: 1200,
+  quality: 88,
+});
 
 console.log("published");

@@ -67,8 +67,8 @@ export function GalleryExtraModal({
               <button
                 type="button"
                 onClick={() => onOpenPhoto(index)}
-                aria-label={`Ampliar ${photo.caption ?? photo.alt}`}
-                className="polaroid-frame w-full text-left"
+                aria-label={`Ampliar ${photo.alt}`}
+                className="polaroid-frame polaroid-frame-tight w-full text-left"
               >
                 <span className="polaroid-photo relative block aspect-square overflow-hidden rounded-sm">
                   <Image
@@ -78,9 +78,6 @@ export function GalleryExtraModal({
                     sizes="(max-width: 448px) 40vw, 180px"
                     className="object-cover"
                   />
-                </span>
-                <span className="mt-2 block truncate text-center font-hand text-sm font-semibold text-primary">
-                  {photo.caption ?? photo.alt}
                 </span>
               </button>
             </li>

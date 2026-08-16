@@ -63,13 +63,14 @@ export const event: Event = {
   locationTitle: "Onde vai ser a festa da Cecília?",
   locationIntro:
     "Estamos te esperando para comemorarmos juntos esse dia tão especial!",
-  locationName: "Restaurante Engenho do Castelo",
-  locationAddress:
-    "Estrada do Engenho do Mato, 200 / Icaraí – Niterói – RJ",
+  locationName: "Restaurante e Lanchonete Engenho do Castelo",
+  locationAddress: "RJ-124 Via Lagos Km 17, Rio Bonito - RJ, 28800-000",
   locationHowToLabel: "Como chegar?",
-  locationHowToText: "Fácil acesso e estacionamento no local.",
+  locationHowToText:
+    "Na Via Lagos (RJ-124), Km 17, em Rio Bonito. Estacionamento no local.",
   locationMapsLabel: "Abrir no Google Maps",
-  mapsUrl: "https://maps.google.com/?q=Restaurante+Engenho+do+Castelo",
+  mapsUrl:
+    "https://www.google.com/maps/place/engenho+do+castelo+rio+bonito/data=!4m2!3m1!1s0x976162a3de670f:0x80d2a234ba7c3c93",
   closingLine1: "Vai ser um dia inesquecível!",
   closingLine2: "Contamos com a sua presença!",
   whatsapp: "+5500000000000",

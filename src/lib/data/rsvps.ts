@@ -10,7 +10,7 @@ export async function getRsvps(): Promise<Rsvp[]> {
   if (serviceRoleKey) {
     const { data, error } = await supabase
       .from("rsvps")
-      .select("id, event_id, name, status, children_count, created_at")
+      .select("id, event_id, name, status, adults_count, children_count, created_at")
       .order("created_at", { ascending: false });
 
     if (error || !data) {

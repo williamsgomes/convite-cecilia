@@ -4,130 +4,226 @@
       "id": "tl-00",
       "month": 0,
       "label": "0 mês",
-      "src": "/images/gallery/01.webp",
+      "src": "/images/timeline/cecilia-0.webp",
       "alt": "Cecília com 0 mês"
     },
     {
       "id": "tl-01",
       "month": 1,
       "label": "1 mês",
-      "src": "/images/gallery/02.webp",
+      "src": "/images/timeline/cecilia-1.webp",
       "alt": "Cecília com 1 mês"
     },
     {
       "id": "tl-02",
       "month": 2,
       "label": "2 meses",
-      "src": "/images/gallery/03.webp",
+      "src": "/images/timeline/cecilia-2.webp",
       "alt": "Cecília com 2 meses"
     },
     {
       "id": "tl-03",
       "month": 3,
       "label": "3 meses",
-      "src": "/images/gallery/04.webp",
+      "src": "/images/timeline/cecilia-3.webp",
       "alt": "Cecília com 3 meses"
     },
     {
       "id": "tl-04",
       "month": 4,
       "label": "4 meses",
-      "src": "/images/gallery/05.webp",
+      "src": "/images/timeline/cecilia-4.webp",
       "alt": "Cecília com 4 meses"
     },
     {
       "id": "tl-05",
       "month": 5,
       "label": "5 meses",
-      "src": "/images/gallery/06.webp",
+      "src": "/images/timeline/cecilia-5.webp",
       "alt": "Cecília com 5 meses"
     },
     {
       "id": "tl-06",
       "month": 6,
       "label": "6 meses",
-      "src": "/images/gallery/01.webp",
+      "src": "/images/timeline/cecilia-6.webp",
       "alt": "Cecília com 6 meses"
     },
     {
       "id": "tl-07",
       "month": 7,
       "label": "7 meses",
-      "src": "/images/gallery/02.webp",
+      "src": "/images/timeline/cecilia-7.webp",
       "alt": "Cecília com 7 meses"
     },
     {
       "id": "tl-08",
       "month": 8,
       "label": "8 meses",
-      "src": "/images/gallery/03.webp",
+      "src": "/images/timeline/cecilia-8.webp",
       "alt": "Cecília com 8 meses"
     },
     {
       "id": "tl-09",
       "month": 9,
       "label": "9 meses",
-      "src": "/images/gallery/04.webp",
+      "src": "/images/timeline/cecilia-9.webp",
       "alt": "Cecília com 9 meses"
     },
     {
       "id": "tl-10",
       "month": 10,
       "label": "10 meses",
-      "src": "/images/gallery/05.webp",
+      "src": "/images/timeline/cecilia-10.webp",
       "alt": "Cecília com 10 meses"
     },
     {
       "id": "tl-11",
       "month": 11,
       "label": "11 meses",
-      "src": "/images/gallery/06.webp",
+      "src": "/images/timeline/cecilia-11.webp",
       "alt": "Cecília com 11 meses"
     },
     {
       "id": "tl-12",
       "month": 12,
       "label": "1 aninho",
-      "src": "/images/gallery/01.webp",
+      "src": "/images/timeline/cecilia-12.webp",
       "alt": "Cecília com 1 aninho"
     }
   ],
   "gallery": [
     {
       "id": "gal-1",
-      "src": "/images/gallery/01.webp",
-      "alt": "Celeiro rosa da fazendinha — foto em breve",
-      "caption": "Celeiro da fazendinha"
+      "src": "/images/gallery/gallery-01.webp",
+      "alt": "Cecília — foto 1",
+      "caption": "Foto 1"
     },
     {
       "id": "gal-2",
-      "src": "/images/gallery/02.webp",
-      "alt": "Árvore com balanço — foto em breve",
-      "caption": "Tarde no balanço"
+      "src": "/images/gallery/gallery-02.webp",
+      "alt": "Cecília — foto 2",
+      "caption": "Foto 2"
     },
     {
       "id": "gal-3",
-      "src": "/images/gallery/03.webp",
-      "alt": "Pônei da fazendinha — foto em breve",
-      "caption": "Passeio com o pônei"
+      "src": "/images/gallery/gallery-03.webp",
+      "alt": "Cecília — foto 3",
+      "caption": "Foto 3"
     },
     {
       "id": "gal-4",
-      "src": "/images/gallery/04.webp",
-      "alt": "Flores da fazendinha — foto em breve",
-      "caption": "Flores do jardim"
+      "src": "/images/gallery/gallery-04.webp",
+      "alt": "Cecília — foto 4",
+      "caption": "Foto 4"
     },
     {
       "id": "gal-5",
-      "src": "/images/gallery/05.webp",
-      "alt": "Fardos de feno — foto em breve",
-      "caption": "Feno e brincadeira"
+      "src": "/images/gallery/gallery-05.webp",
+      "alt": "Cecília — foto 5",
+      "caption": "Foto 5"
     },
     {
       "id": "gal-6",
-      "src": "/images/gallery/06.webp",
-      "alt": "Patinho da fazendinha — foto em breve",
-      "caption": "Amigos da fazenda"
+      "src": "/images/gallery/gallery-06.webp",
+      "alt": "Cecília — foto 6",
+      "caption": "Foto 6"
+    },
+    {
+      "id": "gal-7",
+      "src": "/images/gallery/gallery-07.webp",
+      "alt": "Cecília — foto 7",
+      "caption": "Foto 7"
+    },
+    {
+      "id": "gal-8",
+      "src": "/images/gallery/gallery-08.webp",
+      "alt": "Cecília — foto 8",
+      "caption": "Foto 8"
+    },
+    {
+      "id": "gal-9",
+      "src": "/images/gallery/gallery-09.webp",
+      "alt": "Cecília — foto 9",
+      "caption": "Foto 9"
+    },
+    {
+      "id": "gal-10",
+      "src": "/images/gallery/gallery-10.webp",
+      "alt": "Cecília — foto 10",
+      "caption": "Foto 10"
+    },
+    {
+      "id": "gal-11",
+      "src": "/images/gallery/gallery-11.webp",
+      "alt": "Cecília — foto 11",
+      "caption": "Foto 11"
+    },
+    {
+      "id": "gal-12",
+      "src": "/images/gallery/gallery-12.webp",
+      "alt": "Cecília — foto 12",
+      "caption": "Foto 12"
+    },
+    {
+      "id": "gal-13",
+      "src": "/images/gallery/gallery-13.webp",
+      "alt": "Cecília — foto 13",
+      "caption": "Foto 13"
+    },
+    {
+      "id": "gal-14",
+      "src": "/images/gallery/gallery-14.webp",
+      "alt": "Cecília — foto 14",
+      "caption": "Foto 14"
+    },
+    {
+      "id": "gal-15",
+      "src": "/images/gallery/gallery-15.webp",
+      "alt": "Cecília — foto 15",
+      "caption": "Foto 15"
+    },
+    {
+      "id": "gal-16",
+      "src": "/images/gallery/gallery-16.webp",
+      "alt": "Cecília — foto 16",
+      "caption": "Foto 16"
+    },
+    {
+      "id": "gal-17",
+      "src": "/images/gallery/gallery-17.webp",
+      "alt": "Cecília — foto 17",
+      "caption": "Foto 17"
+    },
+    {
+      "id": "gal-18",
+      "src": "/images/gallery/gallery-18.webp",
+      "alt": "Cecília — foto 18",
+      "caption": "Foto 18"
+    },
+    {
+      "id": "gal-19",
+      "src": "/images/gallery/gallery-19.webp",
+      "alt": "Cecília — foto 19",
+      "caption": "Foto 19"
+    },
+    {
+      "id": "gal-20",
+      "src": "/images/gallery/gallery-20.webp",
+      "alt": "Cecília — foto 20",
+      "caption": "Foto 20"
+    },
+    {
+      "id": "gal-21",
+      "src": "/images/gallery/gallery-21.webp",
+      "alt": "Cecília — foto 21",
+      "caption": "Foto 21"
+    },
+    {
+      "id": "gal-22",
+      "src": "/images/gallery/gallery-22.webp",
+      "alt": "Cecília — foto 22",
+      "caption": "Foto 22"
     }
   ]
 }

@@ -14,6 +14,7 @@ export type RsvpRow = {
   event_id: string;
   name: string;
   status: RsvpStatus;
+  adults_count: number;
   children_count: number;
   created_at: string;
 };
@@ -35,7 +36,8 @@ export function mapRsvp(row: RsvpRow): Rsvp {
     eventId: row.event_id,
     name: row.name,
     status: row.status,
-    childrenCount: row.children_count,
+    adultsCount: row.adults_count ?? 0,
+    childrenCount: row.children_count ?? 0,
     createdAt: row.created_at,
   };
 }

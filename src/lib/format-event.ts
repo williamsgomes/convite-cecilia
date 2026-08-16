@@ -14,7 +14,10 @@ export function formatEventDetails(event: Event) {
     timeZone: TIME_ZONE,
   });
   const hourNumber = Number(hour);
-  const [placeKind, ...placeRest] = event.locationName.split(" ");
+  const cityMatch = event.locationAddress.match(/,\s*([^,]+)\s*-\s*[A-Z]{2}\b/);
+  const placeName = event.locationName
+    .replace(/^(Restaurante e Lanchonete|Restaurante|Lanchonete)\s+/i, "")
+    .trim();
 
   return {
     dateLabel: date.toLocaleDateString("pt-BR", {
@@ -32,16 +35,26 @@ export function formatEventDetails(event: Event) {
     timeLabel: `${hourNumber}h`,
     timeHint:
       hourNumber < 12 ? "da manhã" : hourNumber < 18 ? "da tarde" : "da noite",
-    placeKind,
-    placeName: placeRest.join(" ") || event.locationName,
+    placeKind: cityMatch?.[1].trim() || "Local",
+    placeName: placeName || event.locationName,
   };
 }
 
 export function mapsEmbedUrl(mapsUrl: string) {
   try {
     const url = new URL(mapsUrl);
-    const query = url.searchParams.get("q") ?? mapsUrl;
-    return `https://maps.google.com/maps?q=${encodeURIComponent(query)}&output=embed`;
+    const query = url.searchParams.get("q");
+    if (query) {
+      return `https://maps.google.com/maps?q=${encodeURIComponent(query)}&output=embed`;
+    }
+
+    const placeMatch = url.pathname.match(/\/place\/([^/]+)/);
+    if (placeMatch?.[1]) {
+      const place = decodeURIComponent(placeMatch[1].replace(/\+/g, " "));
+      return `https://maps.google.com/maps?q=${encodeURIComponent(place)}&output=embed`;
+    }
+
+    return `https://maps.google.com/maps?q=${encodeURIComponent(mapsUrl)}&output=embed`;
   } catch {
     return mapsUrl;
   }

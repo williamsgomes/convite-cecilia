@@ -24,8 +24,10 @@ export function Rsvp({ event }: RsvpProps) {
     confirmOpen,
     declineOpen,
     name,
+    adultsCount,
     childrenCount,
     setName,
+    setAdultsCount,
     setChildrenCount,
     openConfirmModal,
     openDeclineModal,
@@ -72,10 +74,12 @@ export function Rsvp({ event }: RsvpProps) {
       <RsvpConfirmModal
         isOpen={confirmOpen}
         name={name}
+        adultsCount={adultsCount}
         childrenCount={childrenCount}
         error={errorMessage ?? undefined}
         isLoading={isBusy}
         onNameChange={setName}
+        onAdultsCountChange={setAdultsCount}
         onChildrenCountChange={setChildrenCount}
         onClose={closeConfirmModal}
         onSubmit={handleConfirmSubmit}

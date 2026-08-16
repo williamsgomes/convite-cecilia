@@ -2,6 +2,7 @@ import { getInvitationData } from "@/lib/data";
 
 import { BackgroundMusic } from "./BackgroundMusic";
 import { Closing } from "./Closing/Closing";
+import { ConfirmPresenceBar } from "./ConfirmPresenceBar";
 import { Countdown } from "./Countdown/Countdown";
 import { Gallery } from "./Gallery/Gallery";
 import { Hero } from "./Hero/Hero";
@@ -25,6 +26,7 @@ export async function InvitationPage() {
         <Location event={event} />
         <Closing event={event} />
       </main>
+      <ConfirmPresenceBar />
       <BackgroundMusic />
     </>
   );

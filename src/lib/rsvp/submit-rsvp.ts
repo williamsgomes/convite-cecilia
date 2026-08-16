@@ -12,8 +12,13 @@ function createRsvpId() {
   return `rsvp-${Date.now()}`;
 }
 
+function isValidCount(value: number) {
+  return Number.isFinite(value) && value >= 0 && value <= 20;
+}
+
 export async function submitRsvp(input: SubmitRsvpInput): Promise<Rsvp> {
   const trimmedName = input.name.trim();
+  const adultsCount = input.status === "confirmed" ? input.adultsCount : 0;
   const childrenCount =
     input.status === "confirmed" ? input.childrenCount : 0;
 
@@ -26,11 +31,11 @@ export async function submitRsvp(input: SubmitRsvpInput): Promise<Rsvp> {
   }
 
   if (input.status === "confirmed") {
-    if (
-      !Number.isFinite(childrenCount) ||
-      childrenCount < 0 ||
-      childrenCount > 20
-    ) {
+    if (!isValidCount(adultsCount)) {
+      throw new Error("Informe entre 0 e 20 adultos.");
+    }
+
+    if (!isValidCount(childrenCount)) {
       throw new Error("Informe entre 0 e 20 crianças.");
     }
   }
@@ -40,6 +45,7 @@ export async function submitRsvp(input: SubmitRsvpInput): Promise<Rsvp> {
     eventId: getEventId(),
     name: trimmedName,
     status: input.status,
+    adultsCount,
     childrenCount,
     createdAt: new Date().toISOString(),
   };
@@ -50,6 +56,7 @@ export async function submitRsvp(input: SubmitRsvpInput): Promise<Rsvp> {
     event_id: rsvp.eventId,
     name: rsvp.name,
     status: rsvp.status,
+    adults_count: rsvp.adultsCount,
     children_count: rsvp.childrenCount,
     created_at: rsvp.createdAt,
   });
