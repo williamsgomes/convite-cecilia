@@ -86,27 +86,31 @@ export function GuestbookForm({ event, onSubmitMessage }: GuestbookFormProps) {
             />
             {event.guestbookMessageLabel}
           </label>
-          <div className="relative">
-            <Textarea
-              id="recadinho-mensagem"
-              name="message"
-              placeholder={event.guestbookMessagePlaceholder}
-              value={message}
-              onChange={(event) =>
-                setMessage(event.target.value.slice(0, MAX_MESSAGE_LENGTH))
-              }
-              disabled={isLoading}
-              required
-              maxLength={MAX_MESSAGE_LENGTH}
-              className="min-h-28 resize-none rounded-lg bg-surface-sunken pb-8"
-            />
-            <p
-              className="pointer-events-none absolute right-3 bottom-2 text-xs font-semibold text-muted"
-              aria-live="polite"
-            >
-              {message.length} / {MAX_MESSAGE_LENGTH}
-            </p>
-          </div>
+          <Textarea
+            id="recadinho-mensagem"
+            name="message"
+            placeholder={event.guestbookMessagePlaceholder}
+            value={message}
+            onChange={(event) =>
+              setMessage(event.target.value.slice(0, MAX_MESSAGE_LENGTH))
+            }
+            disabled={isLoading}
+            required
+            maxLength={MAX_MESSAGE_LENGTH}
+            aria-describedby="recadinho-contador"
+            className="min-h-28 resize-none rounded-lg bg-surface-sunken"
+          />
+          <p
+            id="recadinho-contador"
+            className={
+              message.length >= MAX_MESSAGE_LENGTH
+                ? "text-right text-xs font-semibold text-accent-strong tabular-nums"
+                : "text-right text-xs font-semibold text-muted tabular-nums"
+            }
+            aria-live="polite"
+          >
+            {message.length} / {MAX_MESSAGE_LENGTH}
+          </p>
         </div>
 
         {error ? (

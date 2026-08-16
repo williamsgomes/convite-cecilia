@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/Button";
 import { Field } from "@/components/ui/Field";
 import { Input } from "@/components/ui/Input";
 import { Modal } from "@/components/ui/Modal";
+import { NumberStepper } from "@/components/ui/NumberStepper";
 
 type RsvpConfirmModalProps = {
   isOpen: boolean;
@@ -18,11 +19,6 @@ type RsvpConfirmModalProps = {
   onClose: () => void;
   onSubmit: () => void;
 };
-
-function parseCount(value: string) {
-  const next = Number(value);
-  return Number.isFinite(next) ? next : 0;
-}
 
 export function RsvpConfirmModal({
   isOpen,
@@ -68,34 +64,30 @@ export function RsvpConfirmModal({
           <Field
             id="rsvp-adultos"
             label="Quantos adultos vão?"
-            hint="Incluindo você. Se não houver, coloque 0."
+            hint="Incluindo você."
           >
-            <Input
-              name="adultsCount"
-              type="number"
-              inputMode="numeric"
+            <NumberStepper
+              label="adultos"
+              value={adultsCount}
               min={0}
               max={20}
-              value={Number.isFinite(adultsCount) ? adultsCount : 1}
-              onChange={(event) => onAdultsCountChange(parseCount(event.target.value))}
               disabled={isLoading}
+              onChange={onAdultsCountChange}
             />
           </Field>
 
           <Field
             id="rsvp-criancas"
             label="Quantas crianças vão?"
-            hint="Se não houver crianças, coloque 0."
+            hint="Se não houver, deixe em 0."
           >
-            <Input
-              name="childrenCount"
-              type="number"
-              inputMode="numeric"
+            <NumberStepper
+              label="crianças"
+              value={childrenCount}
               min={0}
               max={20}
-              value={Number.isFinite(childrenCount) ? childrenCount : 0}
-              onChange={(event) => onChildrenCountChange(parseCount(event.target.value))}
               disabled={isLoading}
+              onChange={onChildrenCountChange}
             />
           </Field>
         </div>
