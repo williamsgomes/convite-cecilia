@@ -158,6 +158,58 @@ async function publishJpegSource({ src, dest, maxWidth, quality = 88 }) {
   return info;
 }
 
+async function publishOpeningPlaque({ src, dest, box, maxWidth, quality = 88 }) {
+  const raw = await sharp(src)
+    .extract(box)
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+
+  const { width, height } = raw.info;
+  const pixels = Buffer.from(raw.data);
+
+  for (let i = 0; i < width * height; i += 1) {
+    const offset = i * 4;
+    const r = pixels[offset];
+    const g = pixels[offset + 1];
+    const b = pixels[offset + 2];
+    const a = pixels[offset + 3];
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+
+    if (max < 28 && max - min < 12) {
+      pixels[offset + 3] = 0;
+    } else if (max < 42 && max - min < 14) {
+      pixels[offset + 3] = Math.min(a, Math.round(((max - 28) / 14) * a));
+    }
+  }
+
+  const trimmed = await sharp(pixels, {
+    raw: { width, height, channels: 4 },
+  })
+    .trim({ threshold: 8 })
+    .png()
+    .toBuffer();
+
+  let pipeline = sharp(trimmed);
+  const meta = await pipeline.metadata();
+  if (maxWidth && meta.width && meta.width > maxWidth) {
+    pipeline = sharp(trimmed).resize({
+      width: maxWidth,
+      withoutEnlargement: true,
+    });
+  }
+
+  await mkdir(path.dirname(dest), { recursive: true });
+  const info = await pipeline
+    .webp({ quality, alphaQuality: 95, effort: 6 })
+    .toFile(dest);
+
+  console.log(
+    `${path.relative(PUBLIC, dest)}  ${info.width}×${info.height}  ${(info.size / 1024).toFixed(0)}KB`,
+  );
+}
+
 async function publishSource({ src, dest, maxWidth, quality = 86 }) {
   await mkdir(path.dirname(dest), { recursive: true });
   const trimmed = await sharp(src)
@@ -452,6 +504,21 @@ await publishJpegSource({
   dest: path.join(PUBLIC, "share", "compartilhamento.jpg"),
   maxWidth: 1200,
   quality: 88,
+});
+
+await publishOpeningPlaque({
+  src: path.join(EXPORTS, "elementos-abertura.png"),
+  dest: path.join(PUBLIC, "opening", "plaque.webp"),
+  box: { left: 0, top: 240, width: 853, height: 1070 },
+  maxWidth: 720,
+  quality: 88,
+});
+
+await publishFlatSource({
+  src: path.join(EXPORTS, "fundo_abertura.png"),
+  dest: path.join(PUBLIC, "opening", "background.webp"),
+  maxWidth: 1080,
+  quality: 82,
 });
 
 console.log("published");

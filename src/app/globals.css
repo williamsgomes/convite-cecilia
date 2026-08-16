@@ -51,6 +51,10 @@ html {
   scroll-behavior: smooth;
 }
 
+html[data-invitation-opened] [data-invitation-opening] {
+  display: none;
+}
+
 body {
   background: var(--surface);
   color: var(--primary);

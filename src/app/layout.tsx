@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Dancing_Script, Great_Vibes, Nunito } from "next/font/google";
+import Script from "next/script";
 
+import { INVITATION_OPENED_KEY, INVITATION_OPENED_VALUE } from "@/lib/opening/storage";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_SHARE_TITLE, getSiteUrl } from "@/lib/site";
 
 import "./globals.css";
@@ -79,9 +81,13 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
+      suppressHydrationWarning
       className={`${nunito.variable} ${greatVibes.variable} ${dancingScript.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-surface font-sans text-primary">
+        <Script id="invitation-opened-boot" strategy="beforeInteractive">
+          {`try{if(localStorage.getItem(${JSON.stringify(INVITATION_OPENED_KEY)})===${JSON.stringify(INVITATION_OPENED_VALUE)}){document.documentElement.dataset.invitationOpened="true"}}catch(e){}`}
+        </Script>
         <a
           href="#conteudo"
           className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded-md focus:bg-surface-raised focus:px-4 focus:py-2"

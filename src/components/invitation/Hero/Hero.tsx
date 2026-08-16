@@ -47,7 +47,6 @@ export function Hero({ event }: HeroProps) {
           alt="Cecília, convite de 1 aninho na fazendinha"
           width={900}
           height={839}
-          priority
           sizes="100vw"
           className="block h-auto w-full max-w-none"
         />
