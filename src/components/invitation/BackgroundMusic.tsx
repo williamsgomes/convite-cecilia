@@ -94,9 +94,11 @@ export function BackgroundMusic() {
     }
 
     function hidePage() {
-      if (!audio.paused) {
-        pauseMusic();
+      if (!audioRef.current || audioRef.current.paused) {
+        return;
       }
+
+      pauseMusic();
     }
 
     function showPage() {
