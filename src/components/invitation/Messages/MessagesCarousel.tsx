@@ -58,6 +58,9 @@ export function MessagesCarousel({
   }
 
   function handlePointerDown(event: React.PointerEvent<HTMLDivElement>) {
+    if (event.pointerType !== "mouse") {
+      event.currentTarget.setPointerCapture(event.pointerId);
+    }
     pointerStartX.current = event.clientX;
   }
 
@@ -74,6 +77,10 @@ export function MessagesCarousel({
     if (delta < -SWIPE_THRESHOLD) {
       goNext();
     }
+  }
+
+  function handlePointerCancel() {
+    pointerStartX.current = null;
   }
 
   if (count === 0) {
@@ -112,8 +119,10 @@ export function MessagesCarousel({
           <div
             aria-live="polite"
             aria-atomic="true"
+            className="touch-pan-y select-none"
             onPointerDown={handlePointerDown}
             onPointerUp={handlePointerUp}
+            onPointerCancel={handlePointerCancel}
           >
             <div className={reduceMotion ? undefined : "transition-opacity duration-200"}>
               <MessageCard key={current.id} message={current} />

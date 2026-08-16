@@ -65,6 +65,9 @@ export function PhotoLightbox({
   }
 
   function handlePointerDown(event: React.PointerEvent<HTMLDivElement>) {
+    if (event.pointerType !== "mouse") {
+      event.currentTarget.setPointerCapture(event.pointerId);
+    }
     pointerStartX.current = event.clientX;
   }
 
@@ -81,6 +84,10 @@ export function PhotoLightbox({
     if (delta < -SWIPE_THRESHOLD) {
       onGoTo(((index + 1) % count + count) % count);
     }
+  }
+
+  function handlePointerCancel() {
+    pointerStartX.current = null;
   }
 
   return (
@@ -116,9 +123,10 @@ export function PhotoLightbox({
         </div>
 
         <div
-          className="relative overflow-hidden rounded-lg bg-surface-raised p-2 shadow-lift"
+          className="relative touch-pan-y select-none overflow-hidden rounded-lg bg-surface-raised p-2 shadow-lift"
           onPointerDown={handlePointerDown}
           onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerCancel}
         >
           <div
             className={cn(
@@ -131,7 +139,8 @@ export function PhotoLightbox({
               alt={photo.alt}
               fill
               sizes="(max-width: 448px) 90vw, 448px"
-              className="object-cover"
+              className="pointer-events-none object-cover"
+              draggable={false}
             />
           </div>
         </div>
