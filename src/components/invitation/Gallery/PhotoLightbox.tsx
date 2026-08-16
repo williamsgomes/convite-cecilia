@@ -2,9 +2,10 @@
 
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import Image from "next/image";
-import { useId, useRef } from "react";
+import { useCallback, useId, useRef } from "react";
 
 import { useDialogFocus } from "@/lib/a11y/use-dialog-focus";
+import { useWheelPager } from "@/lib/use-wheel-pager";
 import { cn } from "@/lib/utils";
 import type { LightboxPhoto } from "@/types/gallery";
 
@@ -35,21 +36,29 @@ export function PhotoLightbox({
   indexRef.current = index;
   onGoToRef.current = onGoTo;
 
+  const goPrevious = useCallback(() => {
+    onGoToRef.current(((indexRef.current - 1) % count + count) % count);
+  }, [count]);
+
+  const goNext = useCallback(() => {
+    onGoToRef.current(((indexRef.current + 1) % count + count) % count);
+  }, [count]);
+
   const { panelRef, closeRef } = useDialogFocus(true, onClose, {
     onKeyDown(event) {
       if (event.key === "ArrowLeft") {
         event.preventDefault();
-        const current = indexRef.current;
-        onGoToRef.current(((current - 1) % count + count) % count);
+        goPrevious();
       }
 
       if (event.key === "ArrowRight") {
         event.preventDefault();
-        const current = indexRef.current;
-        onGoToRef.current(((current + 1) % count + count) % count);
+        goNext();
       }
     },
   });
+
+  useWheelPager(goPrevious, goNext, count > 1, panelRef);
 
   if (!photo) {
     return null;
@@ -132,7 +141,7 @@ export function PhotoLightbox({
             <button
               type="button"
               aria-label="Foto anterior"
-              onClick={() => onGoTo(((index - 1) % count + count) % count)}
+              onClick={goPrevious}
               className="inline-flex size-10 items-center justify-center rounded-full bg-accent text-accent-foreground"
             >
               <ChevronLeft aria-hidden className="size-5" strokeWidth={2} />
@@ -143,7 +152,7 @@ export function PhotoLightbox({
             <button
               type="button"
               aria-label="Próxima foto"
-              onClick={() => onGoTo(((index + 1) % count + count) % count)}
+              onClick={goNext}
               className="inline-flex size-10 items-center justify-center rounded-full bg-accent text-accent-foreground"
             >
               <ChevronRight aria-hidden className="size-5" strokeWidth={2} />

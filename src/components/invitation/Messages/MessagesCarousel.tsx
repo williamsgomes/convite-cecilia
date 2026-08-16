@@ -3,6 +3,7 @@
 import { useReducedMotion } from "motion/react";
 import { useCallback, useRef, useState, type ReactNode } from "react";
 
+import { useWheelPager } from "@/lib/use-wheel-pager";
 import type { Message } from "@/types/message";
 
 import { MessageCard } from "./MessageCard";
@@ -42,6 +43,7 @@ export function MessagesCarousel({
 
   const goPrevious = useCallback(() => goTo(index - 1), [goTo, index]);
   const goNext = useCallback(() => goTo(index + 1), [goTo, index]);
+  const wheelRef = useWheelPager(goPrevious, goNext, count > 1);
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
     if (event.key === "ArrowLeft") {
@@ -84,6 +86,7 @@ export function MessagesCarousel({
 
   return (
     <div
+      ref={wheelRef}
       role="region"
       tabIndex={0}
       onKeyDown={handleKeyDown}
