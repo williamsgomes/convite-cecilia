@@ -19,6 +19,7 @@ export function Rsvp({ event }: RsvpProps) {
   const reduceMotion = useReducedMotion();
   const {
     status,
+    hasResponded,
     feedbackMessage,
     errorMessage,
     confirmOpen,
@@ -38,7 +39,7 @@ export function Rsvp({ event }: RsvpProps) {
   } = useRsvp({ event });
 
   const isBusy = status === "loading";
-  const hasResponded = status === "success" && feedbackMessage;
+  const showFeedback = hasResponded && Boolean(feedbackMessage);
 
   return (
     <section
@@ -49,7 +50,7 @@ export function Rsvp({ event }: RsvpProps) {
       <div className={invitationInnerClass}>
         <motion.div {...fadeUp(reduceMotion)}>
           <div className="relative overflow-visible px-1 pt-2 pb-6 sm:px-2 sm:pb-8">
-            {hasResponded ? (
+            {showFeedback && feedbackMessage ? (
               <RsvpFeedback event={event} message={feedbackMessage} />
             ) : (
               <>

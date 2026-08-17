@@ -1,8 +1,13 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useState, useSyncExternalStore } from "react";
 
-import { getStoredRsvp, saveStoredRsvp } from "@/lib/rsvp/storage";
+import {
+  getServerStoredRsvp,
+  getStoredRsvp,
+  saveStoredRsvp,
+  subscribeStoredRsvp,
+} from "@/lib/rsvp/storage";
 import { submitRsvp } from "@/lib/rsvp/submit-rsvp";
 import type { Event } from "@/types/event";
 import type { Rsvp } from "@/types/rsvp";
@@ -14,16 +19,23 @@ type UseRsvpOptions = {
 };
 
 export function useRsvp({ event }: UseRsvpOptions) {
-  const [savedRsvp, setSavedRsvp] = useState<Rsvp | null>(() => getStoredRsvp());
-  const [status, setStatus] = useState<RsvpUiStatus>(() =>
-    getStoredRsvp() ? "success" : "idle",
+  const storedRsvp = useSyncExternalStore(
+    subscribeStoredRsvp,
+    getStoredRsvp,
+    getServerStoredRsvp,
   );
+  const [sessionRsvp, setSessionRsvp] = useState<Rsvp | null>(null);
+  const [status, setStatus] = useState<RsvpUiStatus>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [declineOpen, setDeclineOpen] = useState(false);
   const [name, setName] = useState("");
   const [adultsCount, setAdultsCount] = useState(1);
   const [childrenCount, setChildrenCount] = useState(0);
+
+  const savedRsvp = sessionRsvp ?? storedRsvp;
+  const isBusy = status === "loading";
+  const hasResponded = Boolean(savedRsvp) && !isBusy;
 
   const feedbackMessage =
     savedRsvp?.status === "confirmed"
@@ -40,7 +52,7 @@ export function useRsvp({ event }: UseRsvpOptions) {
       try {
         const response = await submitRsvp(input);
         saveStoredRsvp(response);
-        setSavedRsvp(response);
+        setSessionRsvp(response);
         setStatus("success");
         setConfirmOpen(false);
         setDeclineOpen(false);
@@ -55,19 +67,19 @@ export function useRsvp({ event }: UseRsvpOptions) {
   );
 
   function openConfirmModal() {
-    if (status === "loading" || status === "success") return;
+    if (isBusy || hasResponded) return;
     setErrorMessage(null);
     setConfirmOpen(true);
   }
 
   function openDeclineModal() {
-    if (status === "loading" || status === "success") return;
+    if (isBusy || hasResponded) return;
     setErrorMessage(null);
     setDeclineOpen(true);
   }
 
   function closeConfirmModal() {
-    if (status === "loading") return;
+    if (isBusy) return;
     setConfirmOpen(false);
     setErrorMessage(null);
     if (status === "error") {
@@ -76,7 +88,7 @@ export function useRsvp({ event }: UseRsvpOptions) {
   }
 
   function closeDeclineModal() {
-    if (status === "loading") return;
+    if (isBusy) return;
     setDeclineOpen(false);
     setErrorMessage(null);
     if (status === "error") {
@@ -104,6 +116,7 @@ export function useRsvp({ event }: UseRsvpOptions) {
 
   return {
     status,
+    hasResponded,
     feedbackMessage,
     errorMessage,
     confirmOpen,

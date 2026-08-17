@@ -95,6 +95,9 @@ export function RsvpFeedback({
 }) {
   return (
     <div className="relative z-10 px-2 py-4 text-center sm:px-4">
+      <h2 id="confirmacao-titulo" className="sr-only">
+        Confirmação enviada
+      </h2>
       <span className="mx-auto flex size-12 items-center justify-center rounded-full bg-sage/30 text-sage-strong">
         <Check aria-hidden className="size-6" strokeWidth={2.25} />
       </span>
