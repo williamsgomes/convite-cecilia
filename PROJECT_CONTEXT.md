@@ -1,4 +1,4 @@
-# Fazendinha da Cecília — Contexto Geral do Projeto
+# Fazendinha da Cecília — Contexto Geral do Projeto 
 
 > Documento de contexto geral para uso no Cursor.
 > Este arquivo é a fonte de contexto funcional, técnico e arquitetural do projeto.
