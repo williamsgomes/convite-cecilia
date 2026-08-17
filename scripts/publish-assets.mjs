@@ -375,7 +375,6 @@ const jobs = [
     box: { left: 0, top: 960, width: 1229, height: 320 },
     dest: path.join(PUBLIC, "farm/fence-gate.webp"),
     maxWidth: 1400,
-    isolate: false,
   },
   {
     src: "suporte_elementos_extras.png",

@@ -48,8 +48,8 @@ export function Closing({ event }: ClosingProps) {
       >
         <DecorImage
           src="/images/farm/fence-gate.webp"
-          width={1217}
-          height={307}
+          width={1214}
+          height={265}
           className="relative block h-auto w-full max-w-none"
         />
       </div>
