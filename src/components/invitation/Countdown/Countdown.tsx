@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "motion/react";
 
-import { invitationInnerClass, invitationSectionClass } from "@/components/invitation/section-classes";
+import { invitationSectionClass } from "@/components/invitation/section-classes";
 import { fadeUp } from "@/lib/motion";
 import type { Event } from "@/types/event";
 
@@ -23,11 +23,11 @@ export function Countdown({ event }: CountdownProps) {
     <section
       id="contagem"
       aria-labelledby="contagem-titulo"
-      className={`${invitationSectionClass} bg-surface`}
+      className={`${invitationSectionClass} z-10`}
     >
-      <div className={invitationInnerClass}>
+      <div className="mx-auto w-full max-w-md px-4 pt-10 sm:pt-12">
         <motion.div {...fadeUp(reduceMotion)}>
-          <div className="relative overflow-visible rounded-lg bg-accent/10 px-3 pb-4 shadow-soft sm:px-4">
+          <div className="relative overflow-visible rounded-lg bg-accent/10 px-3 pb-8 shadow-soft sm:px-4">
             <CountdownHeader event={event} />
 
             <div className="pt-20">

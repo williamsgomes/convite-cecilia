@@ -1,30 +1,20 @@
 "use client";
 
-import { useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 
 import { BackgroundMusic } from "@/components/invitation/BackgroundMusic";
 import { InvitationOpening } from "@/components/invitation/Opening/InvitationOpening";
 import { useInvitationAudio } from "@/lib/audio/use-invitation-audio";
-import {
-  isInvitationOpened,
-  saveInvitationOpened,
-  subscribeInvitationOpened,
-} from "@/lib/opening/storage";
 
 type InvitationShellProps = {
   children: ReactNode;
 };
 
 export function InvitationShell({ children }: InvitationShellProps) {
-  const storedOpen = useSyncExternalStore(
-    subscribeInvitationOpened,
-    isInvitationOpened,
-    () => false,
-  );
   const [isOpening, setIsOpening] = useState(false);
   const [dismissed, setDismissed] = useState(false);
   const shouldFocusContent = useRef(false);
-  const showOpening = (!storedOpen && !dismissed) || isOpening;
+  const showOpening = !dismissed || isOpening;
   const audio = useInvitationAudio({ autoplay: !showOpening });
 
   useEffect(() => {
@@ -43,7 +33,6 @@ export function InvitationShell({ children }: InvitationShellProps) {
 
     void audio.play();
     setIsOpening(true);
-    saveInvitationOpened();
   }
 
   function handleOpened() {

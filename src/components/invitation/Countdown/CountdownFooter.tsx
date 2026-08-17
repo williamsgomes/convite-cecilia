@@ -4,7 +4,7 @@ export function CountdownFooter() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none relative left-1/2 mt-5 w-screen max-w-none -translate-x-1/2"
+      className="pointer-events-none relative left-1/2 z-10 mt-15 -mb-8 w-screen max-w-none -translate-x-1/2"
     >
       <div className="relative w-full">
         <DecorImage

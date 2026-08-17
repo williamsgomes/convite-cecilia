@@ -16,22 +16,13 @@ type InvitationOpeningProps = {
   onOpened: () => void;
 };
 
-function wasOpenedBeforePaint() {
-  if (typeof document === "undefined") {
-    return false;
-  }
-
-  return document.documentElement.dataset.invitationOpened === "true";
-}
-
 export function InvitationOpening({
   isOpening,
   onOpen,
   onOpened,
 }: InvitationOpeningProps) {
   const reduceMotion = useReducedMotion();
-  const skipLock = wasOpenedBeforePaint();
-  const { panelRef, closeRef } = useDialogFocus(!skipLock, () => {}, {
+  const { panelRef, closeRef } = useDialogFocus(true, () => {}, {
     handleEscape: false,
   });
 
