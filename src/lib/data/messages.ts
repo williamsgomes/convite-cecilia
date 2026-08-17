@@ -15,8 +15,13 @@ export async function getApprovedMessages(): Promise<Message[]> {
     .select("id, event_id, name, message, created_at")
     .order("created_at", { ascending: false });
 
-  if (error || !data) {
-    return mockMessages.filter((message) => message.approved);
+  if (error) {
+    console.error("Failed to load messages from Supabase:", error.message);
+    return [];
+  }
+
+  if (!data) {
+    return [];
   }
 
   return (data as MessageRow[]).map(mapMessage);

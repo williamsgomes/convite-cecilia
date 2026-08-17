@@ -1,8 +1,9 @@
 "use client";
 
-import { useReducedMotion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useCallback, useRef, useState, type ReactNode } from "react";
 
+import { EASE_OUT_SOFT } from "@/lib/motion";
 import { useWheelPager } from "@/lib/use-wheel-pager";
 import type { Message } from "@/types/message";
 
@@ -15,6 +16,7 @@ import {
 
 type MessagesCarouselProps = {
   messages: Message[];
+  highlightId?: string | null;
   leftDecor?: ReactNode;
   rightDecor?: ReactNode;
 };
@@ -23,11 +25,13 @@ const SWIPE_THRESHOLD = 40;
 
 export function MessagesCarousel({
   messages,
+  highlightId = null,
   leftDecor,
   rightDecor,
 }: MessagesCarouselProps) {
   const reduceMotion = useReducedMotion();
   const [index, setIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
   const pointerStartX = useRef<number | null>(null);
 
   const count = messages.length;
@@ -36,9 +40,14 @@ export function MessagesCarousel({
   const goTo = useCallback(
     (nextIndex: number) => {
       if (count === 0) return;
-      setIndex(((nextIndex % count) + count) % count);
+
+      const resolved = ((nextIndex % count) + count) % count;
+      if (resolved === index) return;
+
+      setDirection(nextIndex > index ? 1 : -1);
+      setIndex(resolved);
     },
-    [count],
+    [count, index],
   );
 
   const goPrevious = useCallback(() => goTo(index - 1), [goTo, index]);
@@ -85,7 +94,11 @@ export function MessagesCarousel({
 
   if (count === 0) {
     return (
-      <p role="status" className="text-center text-sm text-muted">
+      <p
+        id="recadinhos-lista"
+        role="status"
+        className="text-center text-sm text-muted"
+      >
         Os recadinhos ainda estão sendo preparados com carinho.
       </p>
     );
@@ -94,10 +107,11 @@ export function MessagesCarousel({
   return (
     <div
       ref={wheelRef}
+      id="recadinhos-lista"
       role="region"
       tabIndex={0}
       onKeyDown={handleKeyDown}
-      className="mt-5 rounded-md outline-none"
+      className="mt-5 scroll-mt-6 rounded-md outline-none"
       aria-roledescription="carrossel"
       aria-label="Recadinhos"
     >
@@ -119,14 +133,40 @@ export function MessagesCarousel({
           <div
             aria-live="polite"
             aria-atomic="true"
-            className="touch-pan-y select-none"
+            className="relative overflow-hidden touch-pan-y select-none"
             onPointerDown={handlePointerDown}
             onPointerUp={handlePointerUp}
             onPointerCancel={handlePointerCancel}
           >
-            <div className={reduceMotion ? undefined : "transition-opacity duration-200"}>
-              <MessageCard key={current.id} message={current} />
-            </div>
+            <AnimatePresence mode="wait" custom={direction} initial={false}>
+              <motion.div
+                key={current.id}
+                custom={direction}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                variants={{
+                  enter: (slide: number) =>
+                    reduceMotion
+                      ? { opacity: 0 }
+                      : { x: slide * 56, opacity: 0 },
+                  center: { x: 0, opacity: 1 },
+                  exit: (slide: number) =>
+                    reduceMotion
+                      ? { opacity: 0 }
+                      : { x: slide * -56, opacity: 0 },
+                }}
+                transition={{
+                  duration: reduceMotion ? 0.15 : 0.32,
+                  ease: EASE_OUT_SOFT,
+                }}
+              >
+                <MessageCard
+                  message={current}
+                  highlighted={current.id === highlightId}
+                />
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
 

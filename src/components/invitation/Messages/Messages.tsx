@@ -2,7 +2,7 @@
 
 import { Heart } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { DecorImage } from "@/components/decorations/DecorImage";
 import { invitationInnerClass, invitationSectionClass } from "@/components/invitation/section-classes";
@@ -23,12 +23,31 @@ type MessagesProps = {
 export function Messages({ event, messages: initialMessages }: MessagesProps) {
   const reduceMotion = useReducedMotion();
   const [messages, setMessages] = useState(initialMessages);
+  const [highlightId, setHighlightId] = useState<string | null>(null);
 
   async function handleSubmitMessage(input: { name: string; message: string }) {
     const created = await submitMessage(input);
     setMessages((current) => [created, ...current]);
+    setHighlightId(created.id);
     return created;
   }
+
+  useEffect(() => {
+    if (!highlightId) {
+      return;
+    }
+
+    document.getElementById("recadinhos-lista")?.scrollIntoView({
+      behavior: reduceMotion ? "auto" : "smooth",
+      block: "center",
+    });
+
+    const timer = window.setTimeout(() => {
+      setHighlightId(null);
+    }, 5000);
+
+    return () => window.clearTimeout(timer);
+  }, [highlightId, reduceMotion]);
 
   return (
     <section
@@ -98,6 +117,7 @@ export function Messages({ event, messages: initialMessages }: MessagesProps) {
           <MessagesCarousel
             key={messages[0]?.id ?? "empty"}
             messages={messages}
+            highlightId={highlightId}
             leftDecor={
               <DecorImage
                 src="/images/animals/rooster.webp"

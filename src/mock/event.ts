@@ -35,9 +35,9 @@ export const event: Event = {
   rsvpNoLabel: "Não vou",
   rsvpNoHint: "Até a próxima!",
   rsvpSuccessConfirmed:
-    "Que alegria! Sua presença já está confirmada. Mal podemos esperar para celebrar com você!",
+    "Sua confirmação já está registrada. Mal podemos esperar para celebrar com você na fazendinha!",
   rsvpSuccessDeclined:
-    "Obrigada por avisar. Sentiremos sua falta, mas guardamos carinho no coração!",
+    "Sua resposta já está registrada. Obrigada por avisar — sentiremos sua falta, mas guardamos carinho no coração!",
   rsvpErrorMessage:
     "Não conseguimos registrar sua resposta agora. Tente novamente, por favor.",
   messagesTitle: "Recadinhos cheios de carinho",
@@ -52,7 +52,7 @@ export const event: Event = {
   guestbookSubmit: "Enviar recadinho",
   guestbookPrivacy:
     "Sua mensagem será exibida aqui embaixo para todos os convidados.",
-  guestbookSuccess: "Recadinho enviado com carinho. Obrigada!",
+  guestbookSuccess: "Sua mensagem já aparece no carrossel, com carinho. Obrigada!",
   guestbookError:
     "Não conseguimos enviar agora. Tente novamente, por favor.",
   galleryTitle: "Momentos da Cecília",

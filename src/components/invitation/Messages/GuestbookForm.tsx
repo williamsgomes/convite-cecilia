@@ -49,6 +49,27 @@ export function GuestbookForm({ event, onSubmitMessage }: GuestbookFormProps) {
     }
   }
 
+  if (status === "success") {
+    return (
+      <Card className="rounded-lg border border-sage/40 px-4 py-6 text-center shadow-lift sm:px-5 sm:py-7">
+        <Heart
+          aria-hidden
+          className="mx-auto size-7 fill-accent text-accent"
+          strokeWidth={1.5}
+        />
+        <p className="mt-3 font-hand text-2xl font-semibold text-primary">
+          Recadinho enviado!
+        </p>
+        <p role="status" className="mt-2 text-sm leading-relaxed text-sage-strong">
+          {event.guestbookSuccess}
+        </p>
+        <p className="mt-3 text-xs leading-relaxed text-muted">
+          Olha ele aqui embaixo, no carrossel.
+        </p>
+      </Card>
+    );
+  }
+
   return (
     <Card className="rounded-lg border border-accent/20 px-4 py-5 shadow-lift sm:px-5 sm:py-6">
       <form className="space-y-4" onSubmit={handleSubmit}>
@@ -116,12 +137,6 @@ export function GuestbookForm({ event, onSubmitMessage }: GuestbookFormProps) {
         {error ? (
           <p role="alert" className="text-sm font-semibold text-accent-strong">
             {error}
-          </p>
-        ) : null}
-
-        {status === "success" ? (
-          <p role="status" className="text-sm font-semibold text-sage-strong">
-            {event.guestbookSuccess}
           </p>
         ) : null}
 

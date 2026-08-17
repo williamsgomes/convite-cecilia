@@ -2,15 +2,22 @@ import { Heart, Quote } from "lucide-react";
 
 import { Card } from "@/components/ui/Card";
 import { formatMessageDate } from "@/lib/format-event";
+import { cn } from "@/lib/utils";
 import type { Message } from "@/types/message";
 
 type MessageCardProps = {
   message: Message;
+  highlighted?: boolean;
 };
 
-export function MessageCard({ message }: MessageCardProps) {
+export function MessageCard({ message, highlighted = false }: MessageCardProps) {
   return (
-    <Card className="rounded-lg px-5 py-6 text-center shadow-lift sm:px-6 sm:py-7">
+    <Card
+      className={cn(
+        "rounded-lg px-5 py-6 text-center shadow-lift sm:px-6 sm:py-7",
+        highlighted && "ring-2 ring-accent ring-offset-2 ring-offset-surface",
+      )}
+    >
       <Quote
         aria-hidden
         className="mx-auto size-7 text-accent"

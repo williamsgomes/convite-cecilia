@@ -1,4 +1,4 @@
-import { Heart, Lock, X } from "lucide-react";
+import { Check, Heart, Lock, X } from "lucide-react";
 import Image from "next/image";
 
 import { DecorImage } from "@/components/decorations/DecorImage";
@@ -95,8 +95,11 @@ export function RsvpFeedback({
 }) {
   return (
     <div className="relative z-10 px-2 py-4 text-center sm:px-4">
-      <p className="font-display text-2xl text-accent-strong sm:text-3xl">
-        Obrigada!
+      <span className="mx-auto flex size-12 items-center justify-center rounded-full bg-sage/30 text-sage-strong">
+        <Check aria-hidden className="size-6" strokeWidth={2.25} />
+      </span>
+      <p className="mt-4 font-display text-2xl text-accent-strong sm:text-3xl">
+        Confirmação enviada
       </p>
       <p className="mt-3 text-sm leading-relaxed text-primary sm:text-base">
         {message}
