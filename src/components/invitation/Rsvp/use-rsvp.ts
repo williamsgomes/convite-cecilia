@@ -1,13 +1,7 @@
 "use client";
 
-import { useCallback, useState, useSyncExternalStore } from "react";
+import { useCallback, useState } from "react";
 
-import {
-  getServerStoredRsvp,
-  getStoredRsvp,
-  saveStoredRsvp,
-  subscribeStoredRsvp,
-} from "@/lib/rsvp/storage";
 import { submitRsvp } from "@/lib/rsvp/submit-rsvp";
 import type { Event } from "@/types/event";
 import type { Rsvp } from "@/types/rsvp";
@@ -19,11 +13,6 @@ type UseRsvpOptions = {
 };
 
 export function useRsvp({ event }: UseRsvpOptions) {
-  const storedRsvp = useSyncExternalStore(
-    subscribeStoredRsvp,
-    getStoredRsvp,
-    getServerStoredRsvp,
-  );
   const [sessionRsvp, setSessionRsvp] = useState<Rsvp | null>(null);
   const [status, setStatus] = useState<RsvpUiStatus>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -33,14 +22,13 @@ export function useRsvp({ event }: UseRsvpOptions) {
   const [adultsCount, setAdultsCount] = useState(1);
   const [childrenCount, setChildrenCount] = useState(0);
 
-  const savedRsvp = sessionRsvp ?? storedRsvp;
   const isBusy = status === "loading";
-  const hasResponded = Boolean(savedRsvp) && !isBusy;
+  const hasResponded = Boolean(sessionRsvp) && !isBusy;
 
   const feedbackMessage =
-    savedRsvp?.status === "confirmed"
+    sessionRsvp?.status === "confirmed"
       ? event.rsvpSuccessConfirmed
-      : savedRsvp?.status === "declined"
+      : sessionRsvp?.status === "declined"
         ? event.rsvpSuccessDeclined
         : null;
 
@@ -51,7 +39,6 @@ export function useRsvp({ event }: UseRsvpOptions) {
 
       try {
         const response = await submitRsvp(input);
-        saveStoredRsvp(response);
         setSessionRsvp(response);
         setStatus("success");
         setConfirmOpen(false);

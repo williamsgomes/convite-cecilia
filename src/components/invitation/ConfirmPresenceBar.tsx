@@ -3,29 +3,12 @@
 import { Heart } from "lucide-react";
 import { useEffect, useState } from "react";
 
-import { RSVP_CHANGED_EVENT, getStoredRsvp } from "@/lib/rsvp/storage";
 import { cn } from "@/lib/utils";
 
 const CONFIRM_SECTION_ID = "confirmacao";
 
 export function ConfirmPresenceBar() {
-  const [hasResponded, setHasResponded] = useState(true);
   const [sectionInView, setSectionInView] = useState(false);
-
-  useEffect(() => {
-    function syncResponse() {
-      setHasResponded(Boolean(getStoredRsvp()));
-    }
-
-    syncResponse();
-    window.addEventListener(RSVP_CHANGED_EVENT, syncResponse);
-    window.addEventListener("storage", syncResponse);
-
-    return () => {
-      window.removeEventListener(RSVP_CHANGED_EVENT, syncResponse);
-      window.removeEventListener("storage", syncResponse);
-    };
-  }, []);
 
   useEffect(() => {
     const section = document.getElementById(CONFIRM_SECTION_ID);
@@ -45,7 +28,7 @@ export function ConfirmPresenceBar() {
     return () => observer.disconnect();
   }, []);
 
-  if (hasResponded || sectionInView) {
+  if (sectionInView) {
     return null;
   }
 

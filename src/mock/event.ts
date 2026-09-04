@@ -67,8 +67,7 @@ export const event: Event = {
   locationAddress:
     "R. Lindolfo Collor, 122 - Raul Veiga, São Gonçalo - RJ",
   locationHowToLabel: "Como chegar?",
-  locationHowToText:
-    "No bairro Raul Veiga, em São Gonçalo. Estacionamento no local.",
+  locationHowToText: "No bairro Raul Veiga, em São Gonçalo.",
   locationMapsLabel: "Abrir no Google Maps",
   mapsUrl:
     "https://maps.google.com/?q=O+Espetacular+Mundo+do+Macaco,+R.+Lindolfo+Collor,+122,+Raul+Veiga,+São+Gonçalo,+RJ",
