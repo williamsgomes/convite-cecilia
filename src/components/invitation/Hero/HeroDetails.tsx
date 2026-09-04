@@ -1,5 +1,5 @@
 import { CalendarHeart, Clock, Heart, MapPin } from "lucide-react";
-import type { ComponentType } from "react";
+import type { ComponentType, ReactNode } from "react";
 
 import { Card } from "@/components/ui/Card";
 import { formatEventDetails } from "@/lib/format-event";
@@ -20,7 +20,7 @@ type CellProps = {
   icon: IconType;
   label: string;
   primary: string;
-  secondary: string;
+  secondary: ReactNode;
   className?: string;
 };
 
@@ -74,7 +74,14 @@ export function HeroDetails({ event }: HeroDetailsProps) {
           icon={MapPin}
           label="Local"
           primary={details.placeName}
-          secondary={details.placeKind}
+          secondary={
+            <a
+              href="#localizacao"
+              className="mt-0.5 inline-block rounded-sm text-xs font-semibold text-accent-strong underline-offset-2 transition-colors hover:text-accent hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
+            >
+              Ver endereço
+            </a>
+          }
         />
       </dl>
 

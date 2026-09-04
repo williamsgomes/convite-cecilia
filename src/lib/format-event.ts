@@ -43,7 +43,8 @@ export function formatEventDetails(event: Event) {
 export function mapsEmbedUrl(mapsUrl: string) {
   try {
     const url = new URL(mapsUrl);
-    const query = url.searchParams.get("q");
+    const query =
+      url.searchParams.get("q") ?? url.searchParams.get("query");
     if (query) {
       return `https://maps.google.com/maps?q=${encodeURIComponent(query)}&output=embed`;
     }
